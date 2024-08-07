@@ -1,3 +1,4 @@
 domain:领域对象
 dto:数据传输对象
+enumeration:枚举类型
 vo:视图对象
