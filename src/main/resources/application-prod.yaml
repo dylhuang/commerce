@@ -13,3 +13,6 @@ common:
     enable: ${CUSTOMCONNSTR_COMMON_LOGIN_ENABLE:false}
   register:
     enable: ${CUSTOMCONNSTR_COMMON_REGISTER_ENABLE:false}
+
+# jwt 秘钥
+commerce.jwt.key: abcd

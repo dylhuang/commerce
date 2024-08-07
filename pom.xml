@@ -24,6 +24,7 @@
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <caffeine.version>3.1.8</caffeine.version>
         <spring-security.version>6.2.3</spring-security.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <dependencies>
@@ -111,6 +112,13 @@
             <artifactId>easyexcel</artifactId>
             <version>3.3.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
 
 
         <!-- 缓存 -->
