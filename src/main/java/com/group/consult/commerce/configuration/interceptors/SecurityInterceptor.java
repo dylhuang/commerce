@@ -1,4 +1,4 @@
-package com.group.consult.commerce.config.interceptors;
+package com.group.consult.commerce.configuration.interceptors;
 
 import com.group.consult.commerce.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
