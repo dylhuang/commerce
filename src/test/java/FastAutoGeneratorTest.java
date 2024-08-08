@@ -13,11 +13,11 @@ import java.util.Collections;
 public class FastAutoGeneratorTest {
 
     public static void main(String[] args) {
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/standard", "root", "")
+        FastAutoGenerator.create("jdbc:mysql://192.168.119.130:3306/app_bank", "root", "NewMysql*963.")
                 // 全局配置
                 .globalConfig(builder -> builder
                         // 设置作者 todo
-                        .author("Huang, Dylan Bo")
+                        .author("zl")
                         // 注释日期
                         .commentDate("yyyy/MM/dd")
                         // 开启 swagger 模式
@@ -25,7 +25,7 @@ public class FastAutoGeneratorTest {
                         // 禁止打开输出目录
                         .disableOpenDir()
                         // 指定输出目录 todo
-                        .outputDir("/Users/huangbo/project/commerce/src/test/java"))
+                        .outputDir("/yuxiu"))
                 // 包配置
                 .packageConfig(builder -> builder
                         // 设置父包名
@@ -41,12 +41,12 @@ public class FastAutoGeneratorTest {
                         // Mapper包名
                         .mapper("mapper")
                         // 设置mapperXml生成路径
-                        .pathInfo(Collections.singletonMap(OutputFile.xml, "/Users/huangbo/project/commerce/src/test/java")))
+                        .pathInfo(Collections.singletonMap(OutputFile.xml, "/yuxiu")))
                 // 策略配置
                 .strategyConfig(builder -> {
                     builder
                             // 设置需要生成的表名 todo
-                            .addInclude("merchandise_service");
+                            .addInclude("sys_user","sys_role","sys_menu","sys_role_menu","sys_user_role");
                     // Entity 策略配置
                     builder.entityBuilder()
                             .enableFileOverride()
