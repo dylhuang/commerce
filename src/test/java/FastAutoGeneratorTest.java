@@ -33,20 +33,20 @@ public class FastAutoGeneratorTest {
                         // 设置父包模块名
 //                            .moduleName("system")
                         // Entity包名
-                        .entity("entity")
+                        .entity("dao.entity")
                         // Service包名
-                        .service("service")
+                        .service("persist")
                         // Service Impl包名
-                        .serviceImpl("service.impl")
+                        .serviceImpl("persist.impl")
                         // Mapper包名
-                        .mapper("mapper")
+                        .mapper("dao.mapper")
                         // 设置mapperXml生成路径
                         .pathInfo(Collections.singletonMap(OutputFile.xml, "/yuxiu")))
                 // 策略配置
                 .strategyConfig(builder -> {
                     builder
                             // 设置需要生成的表名 todo
-                            .addInclude("sys_user","sys_role","sys_menu","sys_role_menu","sys_user_role");
+                            .addInclude("sys_captcha_code");
                     // Entity 策略配置
                     builder.entityBuilder()
                             .enableFileOverride()
