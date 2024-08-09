@@ -1,5 +1,6 @@
 package com.group.consult.commerce.service;
 
+import com.group.consult.commerce.model.dto.CaptchDTO;
 import com.group.consult.commerce.model.dto.LoginDTO;
 
 /**
@@ -16,4 +17,10 @@ public interface ISysLoginDomainService {
      * @return token
      */
     String login(LoginDTO dto);
+
+    /**
+     * 存储并清理验证码
+     * @param captchDTO
+     */
+    void saveAndClearCaptchaCode(CaptchDTO captchDTO);
 }

@@ -1,14 +1,18 @@
 package com.group.consult.commerce.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.crypto.digest.MD5;
+import com.group.consult.commerce.configuration.Constants;
 import com.group.consult.commerce.dao.entity.SysCaptchaCode;
 import com.group.consult.commerce.dao.entity.SysUser;
 import com.group.consult.commerce.model.ApiCodeEnum;
+import com.group.consult.commerce.model.dto.CaptchDTO;
 import com.group.consult.commerce.model.dto.LoginDTO;
 import com.group.consult.commerce.persist.ISysCaptchaCodeService;
 import com.group.consult.commerce.persist.ISysUserService;
 import com.group.consult.commerce.service.ISysLoginDomainService;
 import com.group.consult.commerce.utils.GerneralUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +44,16 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
         //2、校验用户密码
         SysUser sysUser = userService.findByUserName(dto.getUsername());
         GerneralUtil.assertCheck(sysUser != null, ApiCodeEnum.USER_PWD_ERROR);
-        GerneralUtil.assertCheck(0 == sysUser.getStatus().intValue(), ApiCodeEnum.USER_STATUS_ERROR);
+        GerneralUtil.assertCheck(Constants.ZERO.equals(sysUser.getStatus()), ApiCodeEnum.USER_STATUS_ERROR);
         //todo 用户密码校验
         //todo 生成token
         return "mock-token";
+    }
+
+    @Override
+    public void saveAndClearCaptchaCode(CaptchDTO captchDTO) {
+        SysCaptchaCode captchaCode = new SysCaptchaCode();
+        BeanUtil.copyProperties(captchDTO, captchaCode);
+        captchaCodeService.saveAndClearCaptchaCode(captchaCode);
     }
 }
