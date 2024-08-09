@@ -17,6 +17,6 @@ common:
 commerce:
   # jwt 秘钥
   jwt:
-    key: abcd
+    key: eXV4aXUtYm9zcwog
   # 验证码类型 math 数组计算 char 字符验证
   captchaType: math

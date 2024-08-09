@@ -1,5 +1,6 @@
 package com.group.consult.commerce.utils;
 
+import cn.hutool.core.date.DateUtil;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,7 +16,13 @@ import java.util.function.Function;
  */
 public class JwtUtil {
 
+
     private String secretKey;
+
+    /**
+     * 过期时间-小时
+     */
+    public static final int EXPIRE_HOURS = 24 * 10;
 
     public JwtUtil(String secretKey) {
         this.secretKey = secretKey;
@@ -49,7 +56,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+                .setExpiration(DateUtil.offsetHour(new Date(), EXPIRE_HOURS))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }

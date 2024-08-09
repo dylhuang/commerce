@@ -34,6 +34,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
         token = token.substring(7);
 
         String username = jwtUtil.extractUsername(token);
+        log.info("jwt ===> username={}", username);
 
         if (username == null || !jwtUtil.validateToken(token, username)) {
             //401 JWT Token is invalid or expired

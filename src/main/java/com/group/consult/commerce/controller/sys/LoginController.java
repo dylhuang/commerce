@@ -3,15 +3,15 @@ package com.group.consult.commerce.controller.sys;
 import com.group.consult.commerce.model.ApiResult;
 import com.group.consult.commerce.model.dto.LoginDTO;
 import com.group.consult.commerce.model.vo.LoginVO;
+import com.group.consult.commerce.model.vo.UserInfoVO;
 import com.group.consult.commerce.service.ISysLoginDomainService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @title: 登录控制器
@@ -33,11 +33,21 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
+    @Operation(summary = "登录")
     public ApiResult<LoginVO> login(@RequestBody @Valid LoginDTO loginDTO) {
         String token = loginDomainService.login(loginDTO);
         LoginVO loginVO = new LoginVO();
         loginVO.setToken(token);
         return ApiResult.success(loginVO);
+    }
+
+    @GetMapping("/getUser")
+    @Operation(summary = "获取登录用户信息")
+    public ApiResult<UserInfoVO> getUser() {
+        //todo 获取登录用户信息
+        //查询用户信息
+        UserInfoVO userInfoVO = loginDomainService.getUserInfo("admin");
+        return ApiResult.success(userInfoVO);
     }
 
 }
