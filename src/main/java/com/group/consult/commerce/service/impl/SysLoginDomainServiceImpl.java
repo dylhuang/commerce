@@ -2,6 +2,7 @@ package com.group.consult.commerce.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.crypto.digest.MD5;
+import com.google.common.collect.Sets;
 import com.group.consult.commerce.configuration.Constants;
 import com.group.consult.commerce.dao.entity.SysCaptchaCode;
 import com.group.consult.commerce.dao.entity.SysMenu;
@@ -10,6 +11,7 @@ import com.group.consult.commerce.dao.entity.SysUser;
 import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.model.dto.CaptchDTO;
 import com.group.consult.commerce.model.dto.LoginDTO;
+import com.group.consult.commerce.model.vo.RoutersVO;
 import com.group.consult.commerce.model.vo.UserInfoVO;
 import com.group.consult.commerce.persist.ISysCaptchaCodeService;
 import com.group.consult.commerce.persist.ISysMenuService;
@@ -22,6 +24,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,5 +102,37 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
         userInfoVO.setPermissionCodes(permissionCodes);
 
         return userInfoVO;
+    }
+
+    @Override
+    public List<RoutersVO> getRouters(String userName) {
+
+        //1、获取用户基础信息
+        SysUser sysUser = userService.findByUserName(userName);
+        GerneralUtil.assertCheck(sysUser != null, ApiCodeEnum.NOT_FIND_ERROR);
+
+        //2、获取用户权限菜单,只查目录和菜单
+        List<SysMenu> sysMenus = menuService.findRoutersByUserId(sysUser.getId());
+
+        //3、组装树形结构
+        return buildRoutes(0L, sysMenus);
+    }
+
+    /**
+     * 递归构造路由菜单为树形
+     * @param parentId
+     * @param menus
+     * @return
+     */
+    public List<RoutersVO> buildRoutes(Long parentId, List<SysMenu> menus) {
+        List<RoutersVO> routersVOS = menus.stream().filter(item -> parentId.equals(item.getParentId())).map(item -> {
+            RoutersVO routersVO = new RoutersVO();
+            BeanUtil.copyProperties(item, routersVO);
+            routersVO.setId(item.getId().toString());
+            List<RoutersVO> children = buildRoutes(item.getId(), menus);
+            routersVO.setChildren(children);
+            return routersVO;
+        }).collect(Collectors.toList());
+        return routersVOS;
     }
 }

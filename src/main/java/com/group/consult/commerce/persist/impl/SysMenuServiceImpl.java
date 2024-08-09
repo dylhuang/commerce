@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -21,5 +22,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> findByUserId(Long userId) {
         return getBaseMapper().findByUserId(userId);
+    }
+
+    @Override
+    public List<SysMenu> findRoutersByUserId(Long userId) {
+        return getBaseMapper().findRouterByUserId(userId);
     }
 }

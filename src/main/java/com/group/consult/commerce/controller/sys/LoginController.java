@@ -3,6 +3,7 @@ package com.group.consult.commerce.controller.sys;
 import com.group.consult.commerce.model.ApiResult;
 import com.group.consult.commerce.model.dto.LoginDTO;
 import com.group.consult.commerce.model.vo.LoginVO;
+import com.group.consult.commerce.model.vo.RoutersVO;
 import com.group.consult.commerce.model.vo.UserInfoVO;
 import com.group.consult.commerce.service.ISysLoginDomainService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @title: 登录控制器
@@ -48,6 +51,13 @@ public class LoginController {
         //查询用户信息
         UserInfoVO userInfoVO = loginDomainService.getUserInfo("admin");
         return ApiResult.success(userInfoVO);
+    }
+
+    @GetMapping("/getRouters")
+    @Operation(summary = "获取路由信息")
+    public ApiResult<List<RoutersVO>> getRouters() {
+        List<RoutersVO> list = loginDomainService.getRouters("admin");
+        return ApiResult.success(list);
     }
 
 }
