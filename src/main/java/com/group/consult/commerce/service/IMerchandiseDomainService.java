@@ -61,4 +61,12 @@ public interface IMerchandiseDomainService {
      */
     PageResult<MerchandiseVO> obtainMerchandiseList(MerchandisePageableDTO pageableDTO) throws BusinessException;
 
+    /**
+     * 根据商品ID获取商品信息详情
+     *
+     * @param merchandiseId long
+     * @return MerchandiseVO
+     * @throws BusinessException BusinessException
+     */
+    MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException;
 }

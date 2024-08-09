@@ -74,4 +74,10 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     public PageResult<MerchandiseVO> obtainMerchandiseList(MerchandisePageableDTO pageableDTO) throws BusinessException {
         return merchandiseService.getMerchandiseList(pageableDTO);
     }
+
+    @Override
+    public MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException {
+        Merchandise entity = merchandiseService.getMerchandiseByIdNotNull(merchandiseId);
+        return BeanCopyUtils.copy(entity, MerchandiseVO.class);
+    }
 }

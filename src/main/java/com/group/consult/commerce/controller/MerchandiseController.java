@@ -107,4 +107,21 @@ public class MerchandiseController {
         }
     }
 
+    /**
+     * 根据商品ID查询商品详情
+     *
+     * @param merchandiseId merchandiseId
+     * @return ApiResult<Boolean>
+     */
+    @GetMapping("/fetchMerchandise")
+    @Operation(summary = "fetch merchandise", description = "FETCH MERCHANDISE")
+    public ApiResult<MerchandiseVO> fetchMerchandise(long merchandiseId) {
+        try {
+            MerchandiseVO merchandiseVO = merchandiseDomainService.obtainMerchandise(merchandiseId);
+            return ApiResult.success(merchandiseVO);
+        } catch (BusinessException e) {
+            return ApiResult.fail();
+        }
+    }
+
 }
