@@ -11,22 +11,9 @@ import com.group.consult.commerce.model.ApiCodeEnum;
  */
 public class GerneralUtil {
 
-    public static void check(Boolean exp, int code, String msg) {
-        if (exp) {
-            throw new BusinessException(code, msg);
-        }
-    }
-
     public static void check(Boolean exp, ApiCodeEnum codeEnum) {
         if (exp) {
             throw new BusinessException(codeEnum);
-        }
-    }
-
-
-    public static void assertCheck(Boolean exp, int code, String msg) {
-        if (!exp) {
-            throw new BusinessException(code, msg);
         }
     }
 
