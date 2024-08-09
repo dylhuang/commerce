@@ -20,10 +20,10 @@ public class GlobalExceptionHandler {
     public ApiResult handleGlobalException(BusinessException bx) {
         return ApiResult.result(bx.getCode(), bx.getMessage(), false, null);
     }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ApiResult handleException(Exception ex) {
-//        log.error("未知异常：", ex);
-//        return ApiResult.fail();
-//    }
+
+    @ExceptionHandler(Exception.class)
+    public ApiResult handleException(Exception ex) {
+        log.error("未知异常：", ex);
+        return ApiResult.fail();
+    }
 }
