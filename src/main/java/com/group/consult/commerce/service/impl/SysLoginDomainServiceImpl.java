@@ -1,11 +1,14 @@
 package com.group.consult.commerce.service.impl;
 
+import cn.hutool.crypto.digest.MD5;
 import com.group.consult.commerce.dao.entity.SysCaptchaCode;
 import com.group.consult.commerce.dao.entity.SysUser;
+import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.model.dto.LoginDTO;
 import com.group.consult.commerce.persist.ISysCaptchaCodeService;
 import com.group.consult.commerce.persist.ISysUserService;
 import com.group.consult.commerce.service.ISysLoginDomainService;
+import com.group.consult.commerce.utils.GerneralUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,16 +30,19 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
     @Override
     public String login(LoginDTO dto) {
 
-        //校验验证码
+        //1、校验验证码
         SysCaptchaCode captchaCode = captchaCodeService.queryByUuid(dto.getUuid());
-        if (captchaCode == null) {
+        //验证码已过期
+        GerneralUtil.assertCheck(captchaCode != null, ApiCodeEnum.CAPTCHA_EXPIRED);
+        //验证码错误
+        GerneralUtil.assertCheck(dto.getCode().equals(captchaCode.getCode()), ApiCodeEnum.CAPTCHA_EXPIRED);
 
-        }
-        dto.getCode().equals(captchaCode.getCode());
-        //校验用户密码
-
+        //2、校验用户密码
         SysUser sysUser = userService.findByUserName(dto.getUsername());
-
-        return null;
+        GerneralUtil.assertCheck(sysUser != null, ApiCodeEnum.USER_PWD_ERROR);
+        GerneralUtil.assertCheck(0 == sysUser.getStatus().intValue(), ApiCodeEnum.USER_STATUS_ERROR);
+        //todo 用户密码校验
+        //todo 生成token
+        return "mock-token";
     }
 }

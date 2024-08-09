@@ -3,6 +3,7 @@ package com.group.consult.commerce.configuration.interceptors;
 import com.group.consult.commerce.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  *  @author: zl
  *  @date: 2024-08-07
  */
+@Slf4j
 @Component
 public class SecurityInterceptor implements HandlerInterceptor {
 

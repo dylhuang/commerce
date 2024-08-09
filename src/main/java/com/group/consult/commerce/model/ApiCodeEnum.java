@@ -237,9 +237,11 @@ public enum ApiCodeEnum {
     STATUS_IS_NOT_PENDING(80001, "状态不是待审核"),
 
     /**
-     * 9____ 权限管理
+     * 9____ 后台系统管理
      */
-    USER_ROLE_DUPLICATE(90001, "一个用户只能分配一个角色"),
+    CAPTCHA_EXPIRED(90001, "验证码错误或已过期"),
+    USER_PWD_ERROR(90002, "用户名或密码错误"),
+    USER_STATUS_ERROR(90003, "用户状态不正常"),
 
     /**
      * 10____ 评论管理
