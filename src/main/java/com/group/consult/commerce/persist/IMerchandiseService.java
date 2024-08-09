@@ -16,8 +16,40 @@ import com.group.consult.commerce.model.vo.MerchandiseVO;
  */
 public interface IMerchandiseService extends IService<Merchandise> {
 
+    /**
+     * 根据商品ID获取商品信息
+     *
+     * @param merchandiseId long
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
     Merchandise getMerchandiseById(long merchandiseId) throws BusinessException;
 
+    /**
+     * 根据商品ID获取商品信息【一定包含有商品信息】
+     *
+     * @param merchandiseId long
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    Merchandise getMerchandiseByIdNotNull(long merchandiseId) throws BusinessException;
+
+    /**
+     * 新增商品信息
+     *
+     * @param merchandise Merchandise
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean insertMerchandise(Merchandise merchandise) throws BusinessException;
+
+    /**
+     * 修改商品信息
+     *
+     * @param merchandise Merchandise
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
     boolean updateMerchandise(Merchandise merchandise) throws BusinessException;
 
     /**

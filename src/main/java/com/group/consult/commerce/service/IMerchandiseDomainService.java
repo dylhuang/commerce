@@ -2,6 +2,8 @@ package com.group.consult.commerce.service;
 
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.PageResult;
+import com.group.consult.commerce.model.dto.MerchandiseAdditionDTO;
+import com.group.consult.commerce.model.dto.MerchandiseEditionDTO;
 import com.group.consult.commerce.model.dto.MerchandisePageableDTO;
 import com.group.consult.commerce.model.vo.MerchandiseVO;
 
@@ -12,6 +14,24 @@ import com.group.consult.commerce.model.vo.MerchandiseVO;
  * @since 2024/08/08
  */
 public interface IMerchandiseDomainService {
+
+    /**
+     * 新增商品信息
+     *
+     * @param merchandiseAdditionDTO MerchandiseAdditionDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean addMerchandiseInfo(MerchandiseAdditionDTO merchandiseAdditionDTO) throws BusinessException;
+
+    /**
+     * 根据商品ID修改商品信息
+     *
+     * @param merchandiseEditionDTO MerchandiseEditionDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean editMerchandiseById(MerchandiseEditionDTO merchandiseEditionDTO) throws BusinessException;
 
     /**
      * 根据商品ID删除商品

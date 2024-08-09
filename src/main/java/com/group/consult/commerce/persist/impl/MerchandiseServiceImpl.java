@@ -39,6 +39,24 @@ public class MerchandiseServiceImpl extends ServiceImpl<MerchandiseMapper, Merch
     }
 
     @Override
+    public Merchandise getMerchandiseByIdNotNull(long merchandiseId) throws BusinessException {
+        Merchandise entity = this.getMerchandiseById(merchandiseId);
+        if(null == entity) {
+            throw new BusinessException(ApiCodeEnum.MERCHANDISE_QUERY_NOT_NULL);
+        }
+        return entity;
+    }
+
+    @Override
+    public boolean insertMerchandise(Merchandise merchandise) throws BusinessException {
+        try {
+            return this.saveOrUpdate(merchandise);
+        } catch (Exception e) {
+            throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
     public boolean updateMerchandise(Merchandise merchandise) throws BusinessException {
         try {
             return this.updateById(merchandise);

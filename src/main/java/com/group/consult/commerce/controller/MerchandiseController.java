@@ -36,13 +36,23 @@ public class MerchandiseController {
     @PostMapping("/addMerchandise")
     @Operation(summary = "add merchandise", description = "ADD MERCHANDISE")
     public ApiResult<Boolean> addMerchandise(@RequestBody MerchandiseAdditionDTO merchandiseAdditionDTO) {
-        return ApiResult.success(true);
+        try {
+            boolean flag = merchandiseDomainService.addMerchandiseInfo(merchandiseAdditionDTO);
+            return ApiResult.success(flag);
+        } catch (BusinessException e) {
+            return ApiResult.fail();
+        }
     }
 
     @PostMapping("/editMerchandise")
     @Operation(summary = "edit merchandise", description = "EDIT MERCHANDISE")
     public ApiResult<Boolean> editMerchandise(@RequestBody MerchandiseEditionDTO merchandiseEditionDTO) {
-        return ApiResult.success(true);
+        try {
+            boolean flag = merchandiseDomainService.editMerchandiseById(merchandiseEditionDTO);
+            return ApiResult.success(flag);
+        } catch (BusinessException e) {
+            return ApiResult.fail();
+        }
     }
 
     /**
@@ -71,7 +81,12 @@ public class MerchandiseController {
     @GetMapping("/ableMerchandise")
     @Operation(summary = "enable or unable merchandise", description = "ENABLE OR UNABLE MERCHANDISE")
     public ApiResult<Boolean> ableMerchandise(long merchandiseId) {
-        return ApiResult.success(true);
+        try {
+            boolean flag = merchandiseDomainService.ableMerchandiseById(merchandiseId);
+            return ApiResult.success(flag);
+        } catch (BusinessException e) {
+            return ApiResult.fail();
+        }
     }
 
     /**
