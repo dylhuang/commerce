@@ -4,8 +4,10 @@ import com.group.consult.commerce.model.ApiResult;
 import com.group.consult.commerce.model.dto.LoginDTO;
 import com.group.consult.commerce.model.vo.LoginVO;
 import com.group.consult.commerce.service.ISysLoginDomainService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public ApiResult<LoginVO> login(@RequestBody LoginDTO loginDTO) {
+    public ApiResult<LoginVO> login(@RequestBody @Valid LoginDTO loginDTO) {
         String token = loginDomainService.login(loginDTO);
         LoginVO loginVO = new LoginVO();
         loginVO.setToken(token);
