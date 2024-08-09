@@ -1,31 +1,43 @@
 package com.group.consult.commerce.exception;
 
 import com.group.consult.commerce.model.ApiCodeEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * Demo Controller
+ * Business Exceptions
  *
  * @author Huang, Dylan Bo
- * @since 2024-08-05
+ * @since 2024-08-08
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
 public class BusinessException extends RuntimeException {
 
-    private int code;
+    private final ApiCodeEnum code;
 
-    private String message;
+    private Object data;
 
-    public BusinessException(int code, String message) {
-        super(message);
+    public BusinessException(ApiCodeEnum code) {
+        super(code.getMessage());
         this.code = code;
-        this.message = message;
     }
 
-    public BusinessException(ApiCodeEnum apiCodeEnum) {
-        this(apiCodeEnum.getCode(), apiCodeEnum.getMessage());
+    public BusinessException(ApiCodeEnum code, Object data) {
+        super(code.getMessage());
+        this.code = code;
+        this.data = data;
     }
 
+    @Override
+    public String getMessage() {
+        return Stream.of(this.getCode().getMessage(), Optional.ofNullable(this.getData())
+                        .map(Object::toString)
+                        .orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(":"));
+    }
 }
