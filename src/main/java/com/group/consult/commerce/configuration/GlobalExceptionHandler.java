@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
         return ApiResult.result(bx.getCode().getCode(), bx.getMessage(), false, null);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ApiResult handleException(Exception ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public ApiResult handleException(RuntimeException ex) {
         log.error("未知异常：", ex);
         return ApiResult.fail();
     }
