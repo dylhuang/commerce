@@ -1,13 +1,13 @@
 package com.group.consult.commerce.persist.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.consult.commerce.dao.entity.SysMenu;
 import com.group.consult.commerce.dao.mapper.SysMenuMapper;
 import com.group.consult.commerce.persist.ISysMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -27,5 +27,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> findRoutersByUserId(Long userId) {
         return getBaseMapper().findRouterByUserId(userId);
+    }
+
+    @Override
+    public Long countChilds(List<Long> ids) {
+        QueryWrapper<SysMenu>queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(SysMenu::getParentId, ids);
+        return this.count(queryWrapper);
     }
 }

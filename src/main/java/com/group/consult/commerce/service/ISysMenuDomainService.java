@@ -3,6 +3,8 @@ package com.group.consult.commerce.service;
 import com.group.consult.commerce.model.dto.MenuAddDTO;
 import com.group.consult.commerce.model.dto.MenuEditDTO;
 
+import java.util.List;
+
 public interface ISysMenuDomainService {
 
     /**
@@ -18,4 +20,11 @@ public interface ISysMenuDomainService {
      * @return
      */
     Boolean editMenu(MenuEditDTO menuEditDTO);
+
+    /**
+     * 删除菜单
+     * @param ids
+     * @return
+     */
+    Boolean remove(List<Long> ids);
 }

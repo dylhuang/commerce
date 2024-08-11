@@ -1,10 +1,9 @@
 package com.group.consult.commerce.persist;
 
-import com.group.consult.commerce.dao.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.group.consult.commerce.dao.entity.SysMenu;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -29,4 +28,13 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @return
      */
     List<SysMenu> findRoutersByUserId(Long userId);
+
+    /**
+     * 统计给定菜单下的子菜单数量
+     * @param ids 菜单id列表
+     * @return
+     */
+    Long countChilds(List<Long> ids);
+
+
 }

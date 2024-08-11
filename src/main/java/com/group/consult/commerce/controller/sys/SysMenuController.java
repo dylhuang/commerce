@@ -6,8 +6,11 @@ import com.group.consult.commerce.model.dto.MenuEditDTO;
 import com.group.consult.commerce.service.ISysMenuDomainService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @title: 菜单管理
@@ -34,5 +37,14 @@ public class SysMenuController {
     public ApiResult<Boolean> editMenu(@RequestBody @Valid MenuEditDTO menuEditDTO) {
         Boolean res = menuDomainService.editMenu(menuEditDTO);
         return ApiResult.success(res);
+    }
+
+    @DeleteMapping("/remove")
+    @Operation(summary = "删除菜单")
+    public ApiResult<Boolean> remove(@RequestParam("ids")List<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return ApiResult.success(false);
+        }
+        return ApiResult.success(menuDomainService.remove(ids));
     }
 }

@@ -82,6 +82,8 @@ public enum ApiCodeEnum {
     USER_PWD_ERROR(90003, "用户名或密码错误"),
     USER_STATUS_ERROR(90004, "用户状态不正常"),
     NO_LOGIN_ERROR(90005, "未获取到登录信息"),
+    HAS_CHILD_MENU(90006, "存在子菜单，不允许删除"),
+    USING_MENU(90007, "菜单使用中，不允许删除"),
 
     /**
      * 10____ 评论管理
