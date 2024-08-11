@@ -81,6 +81,7 @@ public enum ApiCodeEnum {
     CAPTCHA_EXPIRED(90002, "验证码错误或已过期"),
     USER_PWD_ERROR(90003, "用户名或密码错误"),
     USER_STATUS_ERROR(90004, "用户状态不正常"),
+    NO_LOGIN_ERROR(90005, "未获取到登录信息"),
 
     /**
      * 10____ 评论管理

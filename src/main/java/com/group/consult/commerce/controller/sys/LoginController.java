@@ -1,5 +1,6 @@
 package com.group.consult.commerce.controller.sys;
 
+import com.group.consult.commerce.configuration.interceptors.LoginUser;
 import com.group.consult.commerce.model.ApiResult;
 import com.group.consult.commerce.model.dto.LoginDTO;
 import com.group.consult.commerce.model.vo.LoginVO;
@@ -8,10 +9,8 @@ import com.group.consult.commerce.model.vo.UserInfoVO;
 import com.group.consult.commerce.service.ISysLoginDomainService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,16 +46,18 @@ public class LoginController {
     @GetMapping("/getUser")
     @Operation(summary = "获取登录用户信息")
     public ApiResult<UserInfoVO> getUser() {
-        //todo 获取登录用户信息
+        //获取登录用户信息
+        LoginUser loginUser = LoginUser.getLoginSubject();
         //查询用户信息
-        UserInfoVO userInfoVO = loginDomainService.getUserInfo("admin");
+        UserInfoVO userInfoVO = loginDomainService.getUserInfo(loginUser.getUserName());
         return ApiResult.success(userInfoVO);
     }
 
     @GetMapping("/getRouters")
     @Operation(summary = "获取路由信息")
     public ApiResult<List<RoutersVO>> getRouters() {
-        List<RoutersVO> list = loginDomainService.getRouters("admin");
+        LoginUser loginUser = LoginUser.getLoginSubject();
+        List<RoutersVO> list = loginDomainService.getRouters(loginUser.getUserName());
         return ApiResult.success(list);
     }
 

@@ -41,4 +41,11 @@ public interface ISysLoginDomainService {
      * @return
      */
     List<RoutersVO> getRouters(String userName);
+
+    /**
+     * 获取用户拥有的权限
+     * @param userId
+     * @return
+     */
+    List<String> getPermissionCodes(Long userId);
 }

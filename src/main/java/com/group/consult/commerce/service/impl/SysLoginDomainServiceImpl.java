@@ -1,8 +1,6 @@
 package com.group.consult.commerce.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.crypto.digest.MD5;
-import com.google.common.collect.Sets;
 import com.group.consult.commerce.configuration.Constants;
 import com.group.consult.commerce.dao.entity.SysCaptchaCode;
 import com.group.consult.commerce.dao.entity.SysMenu;
@@ -20,11 +18,9 @@ import com.group.consult.commerce.persist.ISysUserService;
 import com.group.consult.commerce.service.ISysLoginDomainService;
 import com.group.consult.commerce.utils.GerneralUtil;
 import com.group.consult.commerce.utils.JwtUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,11 +93,16 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
         userInfoVO.setRoleIds(roldIds);
 
         //3、获取用户拥有的权限码列表
-        List<SysMenu> sysMenus = menuService.findByUserId(sysUser.getId());
-        List<String> permissionCodes = sysMenus.stream().map(SysMenu::getCode).collect(Collectors.toList());
+        List<String> permissionCodes = getPermissionCodes(sysUser.getId());
         userInfoVO.setPermissionCodes(permissionCodes);
 
         return userInfoVO;
+    }
+
+    @Override
+    public List<String> getPermissionCodes(Long userId) {
+        List<SysMenu> sysMenus = menuService.findByUserId(userId);
+        return sysMenus.stream().map(SysMenu::getCode).collect(Collectors.toList());
     }
 
     @Override
