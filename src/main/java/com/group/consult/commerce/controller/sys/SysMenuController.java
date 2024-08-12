@@ -3,6 +3,9 @@ package com.group.consult.commerce.controller.sys;
 import com.group.consult.commerce.model.ApiResult;
 import com.group.consult.commerce.model.dto.MenuAddDTO;
 import com.group.consult.commerce.model.dto.MenuEditDTO;
+import com.group.consult.commerce.model.dto.SysMenuListDTO;
+import com.group.consult.commerce.model.vo.SysMenuDetailVO;
+import com.group.consult.commerce.model.vo.SysMenuListVO;
 import com.group.consult.commerce.service.ISysMenuDomainService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -46,5 +49,17 @@ public class SysMenuController {
             return ApiResult.success(false);
         }
         return ApiResult.success(menuDomainService.remove(ids));
+    }
+
+    @GetMapping("/fetchDetail")
+    @Operation(summary = "详情")
+    public ApiResult<SysMenuDetailVO> fetchDetail(@RequestParam("id") Long id) {
+        return ApiResult.success(menuDomainService.fetchDetail(id));
+    }
+
+    @PostMapping("/list")
+    @Operation(summary = "列表,不分页")
+    public ApiResult<List<SysMenuListVO>> list(@RequestBody @Valid SysMenuListDTO menuListDTO) {
+        return ApiResult.success(menuDomainService.list(menuListDTO));
     }
 }

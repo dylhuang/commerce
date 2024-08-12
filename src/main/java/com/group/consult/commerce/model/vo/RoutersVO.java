@@ -21,6 +21,9 @@ public class RoutersVO {
     @Schema(description = "权限资源名称")
     private String menuName;
 
+    @Schema(description = "父级id")
+    private String parentId;
+
     @Schema(description = "权限资源代码")
     private String code;
 
