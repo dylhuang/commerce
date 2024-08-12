@@ -1,12 +1,16 @@
 package com.group.consult.commerce.persist.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.consult.commerce.dao.entity.SysUserRole;
 import com.group.consult.commerce.dao.mapper.SysUserRoleMapper;
+import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.persist.ISysUserRoleService;
+import com.group.consult.commerce.utils.GerneralUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,5 +28,23 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().in(SysUserRole::getRoleId, roleIds);
         return this.count(queryWrapper);
+    }
+
+    @Override
+    public void bindUserRole(Long userId, List<Long> roleIds) {
+        GerneralUtil.check(userId == null || CollectionUtil.isEmpty(roleIds), ApiCodeEnum.PARAM_SET_ILLEGAL);
+        List<SysUserRole> userRoles = new ArrayList<>();
+        for (Long roleId : roleIds) {
+            SysUserRole userRole = new SysUserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(roleId);
+            userRoles.add(userRole);
+        }
+        this.saveBatch(userRoles, Integer.MAX_VALUE);
+    }
+
+    @Override
+    public int removeUserRole(Long userId) {
+        return this.getBaseMapper().deleteUserRole(userId);
     }
 }

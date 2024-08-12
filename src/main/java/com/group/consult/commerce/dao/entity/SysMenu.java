@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -71,23 +70,4 @@ public class SysMenu extends BaseEntity implements Serializable {
     @TableField("remark")
     private String remark;
 
-    /** 创建时间 */
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    /** 创建人 */
-    @TableField("create_by")
-    private String createBy;
-
-    /** 更新时间 */
-    @TableField("update_time")
-    private LocalDateTime updateTime;
-
-    /** 更新人 */
-    @TableField("update_by")
-    private String updateBy;
-
-    /** 是否删除；0：未删除；1：删除 */
-    @TableField("is_del")
-    private Integer isDel;
 }

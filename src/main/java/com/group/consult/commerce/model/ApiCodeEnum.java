@@ -33,6 +33,8 @@ public enum ApiCodeEnum {
 
     NOT_FIND_ERROR(10005, "未查询到信息"),
 
+    DB_EXE_FAIL(10006, "数据执行失败"),
+
     /**
      * 2____ 系统管理
      */
@@ -67,6 +69,7 @@ public enum ApiCodeEnum {
      * 7____ 用户管理
      */
     PLACEHOLDER_7(70001, "占位"),
+    USER_EXIST(70002, "用户已存在"),
 
 
     /**

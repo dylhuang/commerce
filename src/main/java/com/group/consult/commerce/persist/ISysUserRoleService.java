@@ -22,4 +22,18 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
      */
     long countByRoleId(List<Long> roleIds);
 
+    /**
+     * 绑定用户角色关系
+     * @param userId
+     * @param roleIds
+     */
+    void bindUserRole(Long userId, List<Long> roleIds);
+
+
+    /**
+     * 删除用户角色关系
+     * @param userId
+     */
+    int removeUserRole(Long userId);
+
 }
