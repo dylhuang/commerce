@@ -10,5 +10,5 @@ import com.group.consult.commerce.dao.entity.MerchandiseService;
  * @since 2024/08/07
  */
 public interface MerchandiseServiceMapper extends BaseMapper<MerchandiseService> {
-
+    int removeByMerchandiseId(Long merchandiseId);
 }

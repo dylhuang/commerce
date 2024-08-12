@@ -3,6 +3,7 @@ package com.group.consult.commerce.persist;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group.consult.commerce.dao.entity.Merchandise;
+import com.group.consult.commerce.dao.entity.ServiceType;
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.MerchandisePageableDTO;
@@ -60,4 +61,5 @@ public interface IMerchandiseService extends IService<Merchandise> {
      * @throws BusinessException BusinessException
      */
     PageResult<MerchandiseVO> getMerchandiseList(MerchandisePageableDTO pageableDTO) throws BusinessException;
+
 }

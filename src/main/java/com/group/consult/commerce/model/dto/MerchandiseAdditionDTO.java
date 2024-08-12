@@ -1,9 +1,16 @@
 package com.group.consult.commerce.model.dto;
 
+import lombok.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class MerchandiseAdditionDTO implements Serializable {
 
     @Serial

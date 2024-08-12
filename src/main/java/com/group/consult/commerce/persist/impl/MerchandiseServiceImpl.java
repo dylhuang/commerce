@@ -87,4 +87,5 @@ public class MerchandiseServiceImpl extends ServiceImpl<MerchandiseMapper, Merch
             throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
         }
     }
+
 }

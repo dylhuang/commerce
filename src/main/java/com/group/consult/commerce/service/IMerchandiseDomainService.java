@@ -2,10 +2,11 @@ package com.group.consult.commerce.service;
 
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.PageResult;
-import com.group.consult.commerce.model.dto.MerchandiseAdditionDTO;
-import com.group.consult.commerce.model.dto.MerchandiseEditionDTO;
-import com.group.consult.commerce.model.dto.MerchandisePageableDTO;
+import com.group.consult.commerce.model.dto.*;
 import com.group.consult.commerce.model.vo.MerchandiseVO;
+import com.group.consult.commerce.model.vo.ServiceTypeVO;
+
+import java.util.List;
 
 /**
  * 商品领域模型相关接口
@@ -69,4 +70,60 @@ public interface IMerchandiseDomainService {
      * @throws BusinessException BusinessException
      */
     MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException;
+
+    /**
+     * 新增服务类型
+     *
+     * @param serviceTypeAdditionDTO ServiceTypeAdditionDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean addServiceType(ServiceTypeAdditionDTO serviceTypeAdditionDTO) throws BusinessException;
+
+    /**
+     * 根据服务类型ID修改服务类型
+     *
+     * @param serviceTypeEditionDTO ServiceTypeEditionDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean editServiceTypeById(ServiceTypeEditionDTO serviceTypeEditionDTO) throws BusinessException;
+
+    /**
+     * 获取服务类型(分页)列表
+     *
+     * @param pageableDTO ServiceTypePageableDTO
+     * @return PageResult<ServiceTypeVO>
+     * @throws BusinessException BusinessException
+     * @author Huang, Dylan Bo
+     */
+    PageResult<ServiceTypeVO> obtainPageableServiceTypeList(ServiceTypePageableDTO pageableDTO) throws BusinessException;
+
+    /**
+     * 获取所有服务类型列表
+     *
+     * @param serviceTypeSearchDTO ServiceTypeSearchDTO
+     * @return List<ServiceTypeVO>
+     * @throws BusinessException BusinessException
+     */
+    List<ServiceTypeVO> obtainAllServiceTypeList(ServiceTypeSearchDTO serviceTypeSearchDTO) throws BusinessException;
+
+    /**
+     * 根据服务类型ID获取服务类型详情
+     *
+     * @param serviceTypeId long
+     * @return MerchandiseVO
+     * @throws BusinessException BusinessException
+     */
+    ServiceTypeVO obtainServiceType(long serviceTypeId) throws BusinessException;
+
+    /**
+     * 绑定商品和服务类型
+     *
+     * @param merchandiseBindDTO MerchandiseBindDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean bindMerchandiseService(MerchandiseBindDTO merchandiseBindDTO) throws BusinessException;
+
 }

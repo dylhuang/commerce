@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -24,7 +25,8 @@ import java.io.Serializable;
 @TableName("service_type")
 public class ServiceType extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 5688739895861153349L;
 
     /**
      * 服务类型名称

@@ -1,5 +1,6 @@
 package com.group.consult.commerce.model.dto;
 
+import com.group.consult.commerce.model.PageRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "商品分页查询DTO")
-public class MerchandisePageableDTO extends PageRequestDTO implements Serializable {
+public class MerchandisePageableDTO extends PageRequest implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 6822371908887499109L;
