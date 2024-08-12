@@ -122,7 +122,6 @@ public class SysRoleDomainServiceImpl implements ISysRoleDomainService {
 
     @Override
     public PageResult<RoleListVO> pageList(RolePageListDTO dto) {
-        //LambdaQueryWrapper<SysRole> lambdaQueryWrapper = Wrapper
-        return null;
+        return roleService.pageList(dto);
     }
 }

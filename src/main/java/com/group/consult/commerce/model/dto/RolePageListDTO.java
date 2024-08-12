@@ -1,5 +1,6 @@
 package com.group.consult.commerce.model.dto;
 
+import com.group.consult.commerce.model.PageRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "角色分页查询")
 @Data
-public class RolePageListDTO extends PageRequestDTO{
+public class RolePageListDTO extends PageRequest {
 
     @Schema(description = "角色名称")
     private String roleName;
