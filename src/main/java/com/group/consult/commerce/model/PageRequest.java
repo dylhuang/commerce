@@ -1,4 +1,4 @@
-package com.group.consult.commerce.model.dto;
+package com.group.consult.commerce.model;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.sql.SqlInjectionUtils;
@@ -23,14 +23,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 分页请求DTO
+ * 分页请求
  *
  * @author Huang, Dylan Bo
  * @since 2024/08/08
  */
-@Schema(description = "分页请求DTO")
+@Schema(description = "分页请求")
 @Data
-public class PageRequestDTO implements Serializable {
+public class PageRequest implements Serializable {
 
     @Schema(hidden = true)
     @Serial

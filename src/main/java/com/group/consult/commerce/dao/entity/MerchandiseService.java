@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -22,7 +23,8 @@ import java.io.Serializable;
 @TableName("merchandise_service")
 public class MerchandiseService extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 2488573555398635945L;
 
     /**
      * 商品ID
