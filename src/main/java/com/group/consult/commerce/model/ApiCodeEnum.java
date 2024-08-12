@@ -73,6 +73,11 @@ public enum ApiCodeEnum {
      * 8____ 角色管理
      */
     PLACEHOLDER_8(80001, "占位"),
+    ROLE_CODE_EXIST(80002, "角色编码已存在"),
+    ROLE_ID_NOT(80003, "角色ID必填"),
+    ROLE_MENU_BIND_ERROR(80004, "角色菜单绑定错误"),
+    ROLE_SAVE_ERROR(80005, "角色保存错误"),
+    ROLE_USING(80006, "角色使用中，不允许删除"),
 
     /**
      * 9____ 权限管理
