@@ -80,7 +80,7 @@ public class SysUserDomainServiceImpl implements ISysUserDomainService {
         List<Long> roleIds = userEditDTO.getRoleIds().stream().map(item -> Long.valueOf(item)).collect(
                 Collectors.toList());
         userRoleService.bindUserRole(user.getId(), roleIds);
-        return Boolean.TRUE;
+        return resSave;
     }
 
     @Transactional(rollbackFor = Exception.class)
