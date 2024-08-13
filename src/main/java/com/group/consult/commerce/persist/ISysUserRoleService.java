@@ -36,4 +36,11 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
      */
     int removeUserRole(Long userId);
 
+    /**
+     * 删除多个用户的角色关系
+     * @param userIds
+     * @return 删除条数
+     */
+    int removeBatchUserRole(List<Long> userIds);
+
 }

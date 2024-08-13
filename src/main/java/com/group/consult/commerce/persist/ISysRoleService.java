@@ -31,4 +31,5 @@ public interface ISysRoleService extends IService<SysRole> {
      * @return
      */
     PageResult<RoleListVO> pageList(RolePageListDTO pageListDTO);
+
 }

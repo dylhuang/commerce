@@ -35,6 +35,8 @@ public enum ApiCodeEnum {
 
     DB_EXE_FAIL(10006, "数据执行失败"),
 
+    NO_DEL_SELF(10007, "不允许删除自己"),
+
     /**
      * 2____ 系统管理
      */
