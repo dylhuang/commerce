@@ -4,6 +4,7 @@ import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.UserAddDTO;
 import com.group.consult.commerce.model.dto.UserEditDTO;
 import com.group.consult.commerce.model.dto.UserListDTO;
+import com.group.consult.commerce.model.vo.SysUserResetPwdDTO;
 import com.group.consult.commerce.model.vo.UserDetailVO;
 import com.group.consult.commerce.model.vo.UserListVO;
 
@@ -37,6 +38,13 @@ public interface ISysUserDomainService {
      * @return
      */
     Boolean remove(List<Long> ids);
+
+    /**
+     * 重置密码
+     * @param dto
+     * @return
+     */
+    Boolean resetPwd(SysUserResetPwdDTO dto);
 
     /**
      * 用户详情

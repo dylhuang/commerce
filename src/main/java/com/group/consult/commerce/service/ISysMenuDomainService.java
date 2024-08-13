@@ -1,10 +1,11 @@
 package com.group.consult.commerce.service;
 
-import com.group.consult.commerce.model.dto.MenuAddDTO;
-import com.group.consult.commerce.model.dto.MenuEditDTO;
-import com.group.consult.commerce.model.dto.SysMenuListDTO;
+import com.group.consult.commerce.model.PageResult;
+import com.group.consult.commerce.model.dto.*;
 import com.group.consult.commerce.model.vo.SysMenuDetailVO;
 import com.group.consult.commerce.model.vo.SysMenuListVO;
+import com.group.consult.commerce.model.vo.SysMenuPageListVO;
+import com.group.consult.commerce.model.vo.SysMenuTreeListVO;
 
 import java.util.List;
 
@@ -44,4 +45,18 @@ public interface ISysMenuDomainService {
      * @return
      */
     List<SysMenuListVO> list(SysMenuListDTO dto);
+
+    /**
+     * 列表，分页
+     * @param dto
+     * @return
+     */
+    PageResult<SysMenuPageListVO> pageList(SysMenuPageListDTO dto);
+
+    /**
+     * 菜单树
+     * @param dto
+     * @return
+     */
+    List<SysMenuTreeListVO> treeList(SysMenuTreeListDTO dto);
 }

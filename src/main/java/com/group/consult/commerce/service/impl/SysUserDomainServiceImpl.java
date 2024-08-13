@@ -3,6 +3,7 @@ package com.group.consult.commerce.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.group.consult.commerce.configuration.interceptors.LoginUser;
@@ -13,6 +14,7 @@ import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.UserAddDTO;
 import com.group.consult.commerce.model.dto.UserEditDTO;
 import com.group.consult.commerce.model.dto.UserListDTO;
+import com.group.consult.commerce.model.vo.SysUserResetPwdDTO;
 import com.group.consult.commerce.model.vo.UserDetailVO;
 import com.group.consult.commerce.model.vo.UserListVO;
 import com.group.consult.commerce.persist.ISysRoleService;
@@ -92,6 +94,15 @@ public class SysUserDomainServiceImpl implements ISysUserDomainService {
 
         //删除用户
         return userService.removeByIds(ids);
+    }
+
+    @Override
+    public Boolean resetPwd(SysUserResetPwdDTO dto) {
+        UpdateWrapper<SysUser> updateWrapper = new UpdateWrapper<>();
+        //todo 密码 String pwd = SecurityUtils.encryptPassword(dto.getPassword());
+        updateWrapper.lambda().set(SysUser::getPassword, "");
+        updateWrapper.lambda().eq(SysUser::getId, dto.getId());
+        return userService.update(updateWrapper);
     }
 
     @Override

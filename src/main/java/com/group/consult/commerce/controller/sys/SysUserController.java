@@ -5,6 +5,7 @@ import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.UserAddDTO;
 import com.group.consult.commerce.model.dto.UserEditDTO;
 import com.group.consult.commerce.model.dto.UserListDTO;
+import com.group.consult.commerce.model.vo.SysUserResetPwdDTO;
 import com.group.consult.commerce.model.vo.UserDetailVO;
 import com.group.consult.commerce.model.vo.UserListVO;
 import com.group.consult.commerce.service.ISysUserDomainService;
@@ -44,6 +45,12 @@ public class SysUserController {
     @Operation(summary = "删除用户")
     public ApiResult<Boolean> remove(@RequestParam("ids") List<Long> ids) {
         return ApiResult.success(userDomainService.remove(ids));
+    }
+
+    @PostMapping("/resetPwd")
+    @Operation(summary = "重置密码")
+    public ApiResult<Boolean> resetPwd(@RequestBody @Valid SysUserResetPwdDTO dto) {
+        return ApiResult.success(userDomainService.resetPwd(dto));
     }
 
     @Operation(summary = "用户详情")

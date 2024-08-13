@@ -1,11 +1,12 @@
 package com.group.consult.commerce.controller.sys;
 
 import com.group.consult.commerce.model.ApiResult;
-import com.group.consult.commerce.model.dto.MenuAddDTO;
-import com.group.consult.commerce.model.dto.MenuEditDTO;
-import com.group.consult.commerce.model.dto.SysMenuListDTO;
+import com.group.consult.commerce.model.PageResult;
+import com.group.consult.commerce.model.dto.*;
 import com.group.consult.commerce.model.vo.SysMenuDetailVO;
 import com.group.consult.commerce.model.vo.SysMenuListVO;
+import com.group.consult.commerce.model.vo.SysMenuPageListVO;
+import com.group.consult.commerce.model.vo.SysMenuTreeListVO;
 import com.group.consult.commerce.service.ISysMenuDomainService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -61,5 +62,17 @@ public class SysMenuController {
     @Operation(summary = "列表,不分页")
     public ApiResult<List<SysMenuListVO>> list(@RequestBody @Valid SysMenuListDTO menuListDTO) {
         return ApiResult.success(menuDomainService.list(menuListDTO));
+    }
+
+    @PostMapping("/pageList")
+    @Operation(summary = "列表,分页")
+    public ApiResult<PageResult<SysMenuPageListVO>> pageList(@RequestBody @Valid SysMenuPageListDTO menuListDTO) {
+        return ApiResult.success(menuDomainService.pageList(menuListDTO));
+    }
+
+    @PostMapping("/treeList")
+    @Operation(summary = "菜单树")
+    public ApiResult<List<SysMenuTreeListVO>> treeList(@RequestBody @Valid SysMenuTreeListDTO dto) {
+        return ApiResult.success(menuDomainService.treeList(dto));
     }
 }

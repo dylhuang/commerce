@@ -2,6 +2,13 @@ package com.group.consult.commerce.persist;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group.consult.commerce.dao.entity.SysMenu;
+import com.group.consult.commerce.model.PageResult;
+import com.group.consult.commerce.model.dto.SysMenuListDTO;
+import com.group.consult.commerce.model.dto.SysMenuPageListDTO;
+import com.group.consult.commerce.model.dto.SysMenuTreeListDTO;
+import com.group.consult.commerce.model.vo.SysMenuListVO;
+import com.group.consult.commerce.model.vo.SysMenuPageListVO;
+import com.group.consult.commerce.model.vo.SysMenuTreeListVO;
 
 import java.util.List;
 
@@ -36,5 +43,25 @@ public interface ISysMenuService extends IService<SysMenu> {
      */
     Long countChilds(List<Long> ids);
 
+    /**
+     * 列表，不分页
+     * @param dto
+     * @return
+     */
+    List<SysMenuListVO> listNoPage(SysMenuListDTO dto);
+
+    /**
+     * 列表，分页
+     * @param dto
+     * @return
+     */
+    PageResult<SysMenuPageListVO> pageList(SysMenuPageListDTO dto);
+
+    /**
+     * 菜单树
+     * @param dto
+     * @return
+     */
+    List<SysMenuTreeListVO> treeList(SysMenuTreeListDTO dto);
 
 }
