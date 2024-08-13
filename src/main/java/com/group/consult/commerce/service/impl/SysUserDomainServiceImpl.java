@@ -116,8 +116,13 @@ public class SysUserDomainServiceImpl implements ISysUserDomainService {
         UserDetailVO userDetailVO = new UserDetailVO();
         BeanUtil.copyProperties(sysUser, userDetailVO);
         List<SysRole> roles = roleService.listByUserId(id);
-        List<String> roleIds = roles.stream().map(item -> item.getId().toString()).collect(Collectors.toList());
-        userDetailVO.setRoleIds(roleIds);
+        List<UserDetailVO.UserRoleVO> roleVOS = roles.stream().map(item -> {
+            UserDetailVO.UserRoleVO userRoleVO = new UserDetailVO.UserRoleVO();
+            userRoleVO.setRoleId(item.getId().toString());
+            userRoleVO.setRoleName(item.getRoleName());
+            return userRoleVO;
+        }).collect(Collectors.toList());
+        userDetailVO.setRoleVOS(roleVOS);
         return userDetailVO;
     }
 

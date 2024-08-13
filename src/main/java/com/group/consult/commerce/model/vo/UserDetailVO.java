@@ -40,5 +40,11 @@ public class UserDetailVO extends BaseVO{
     private Integer status ;
 
     @Schema(description = "拥有的角色id列表")
-    private List<String> roleIds;
+    private List<UserRoleVO> roleVOS;
+
+    @Data
+    public static class UserRoleVO {
+        private String roleId;
+        private String roleName;
+    }
 }

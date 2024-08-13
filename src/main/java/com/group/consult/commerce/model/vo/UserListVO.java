@@ -36,4 +36,5 @@ public class UserListVO extends BaseVO{
 
     @Schema(description = "用户状态(0-正常，1-禁用)")
     private Integer status ;
+
 }
