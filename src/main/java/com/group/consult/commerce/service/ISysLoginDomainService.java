@@ -2,7 +2,9 @@ package com.group.consult.commerce.service;
 
 import com.group.consult.commerce.model.dto.CaptchDTO;
 import com.group.consult.commerce.model.dto.LoginDTO;
+import com.group.consult.commerce.model.dto.SysUpdateUserPwdDTO;
 import com.group.consult.commerce.model.vo.RoutersVO;
+import com.group.consult.commerce.model.vo.UpdatePersonInfoDTO;
 import com.group.consult.commerce.model.vo.UserInfoVO;
 
 import java.util.List;
@@ -48,4 +50,18 @@ public interface ISysLoginDomainService {
      * @return
      */
     List<String> getPermissionCodes(Long userId);
+
+    /**
+     * 个人信息修改
+     * @param dto
+     * @return
+     */
+    Boolean updatePersonInfo(UpdatePersonInfoDTO dto);
+
+    /**
+     * 修改登录用户密码
+     * @param dto
+     * @return
+     */
+    Boolean updatePwd(SysUpdateUserPwdDTO dto);
 }

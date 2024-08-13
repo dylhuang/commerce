@@ -3,8 +3,10 @@ package com.group.consult.commerce.controller.sys;
 import com.group.consult.commerce.configuration.interceptors.LoginUser;
 import com.group.consult.commerce.model.ApiResult;
 import com.group.consult.commerce.model.dto.LoginDTO;
+import com.group.consult.commerce.model.dto.SysUpdateUserPwdDTO;
 import com.group.consult.commerce.model.vo.LoginVO;
 import com.group.consult.commerce.model.vo.RoutersVO;
+import com.group.consult.commerce.model.vo.UpdatePersonInfoDTO;
 import com.group.consult.commerce.model.vo.UserInfoVO;
 import com.group.consult.commerce.service.ISysLoginDomainService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,6 +61,18 @@ public class LoginController {
         LoginUser loginUser = LoginUser.getLoginSubject();
         List<RoutersVO> list = loginDomainService.getRouters(loginUser.getUserName());
         return ApiResult.success(list);
+    }
+
+    @PostMapping("/updatePersonInfo")
+    @Operation(summary = "修改个人信息")
+    public ApiResult<Boolean> updatePersonInfo(@Valid @RequestBody UpdatePersonInfoDTO dto) {
+        return ApiResult.success(loginDomainService.updatePersonInfo(dto));
+    }
+
+    @PostMapping("/updatePwd")
+    @Operation(summary = "登录用户密码修改")
+    public ApiResult<Boolean> updatePwd(@Valid @RequestBody SysUpdateUserPwdDTO dto) {
+        return ApiResult.success(loginDomainService.updatePwd(dto));
     }
 
 }

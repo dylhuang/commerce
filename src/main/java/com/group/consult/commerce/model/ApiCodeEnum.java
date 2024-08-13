@@ -94,6 +94,7 @@ public enum ApiCodeEnum {
     NO_LOGIN_ERROR(90005, "未获取到登录信息"),
     HAS_CHILD_MENU(90006, "存在子菜单，不允许删除"),
     USING_MENU(90007, "菜单使用中，不允许删除"),
+    OLD_PWD_ERROR(90008, "修改密码失败，旧密码错误"),
 
     /**
      * 10____ 评论管理

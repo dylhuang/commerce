@@ -30,7 +30,7 @@ public class PasswordSaltGeneratorUtil {
 
     /**
      * 密码匹配
-     * @param password
+     * @param password  原始密码，非加密
      * @param dbPwd
      * @return
      */

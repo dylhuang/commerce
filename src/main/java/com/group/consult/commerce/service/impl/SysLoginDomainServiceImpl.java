@@ -9,7 +9,9 @@ import com.group.consult.commerce.dao.entity.SysUser;
 import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.model.dto.CaptchDTO;
 import com.group.consult.commerce.model.dto.LoginDTO;
+import com.group.consult.commerce.model.dto.SysUpdateUserPwdDTO;
 import com.group.consult.commerce.model.vo.RoutersVO;
+import com.group.consult.commerce.model.vo.UpdatePersonInfoDTO;
 import com.group.consult.commerce.model.vo.UserInfoVO;
 import com.group.consult.commerce.persist.ISysCaptchaCodeService;
 import com.group.consult.commerce.persist.ISysMenuService;
@@ -138,5 +140,15 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
             return routersVO;
         }).collect(Collectors.toList());
         return routersVOS;
+    }
+
+    @Override
+    public Boolean updatePersonInfo(UpdatePersonInfoDTO dto) {
+        return userService.updatePersonInfo(dto);
+    }
+
+    @Override
+    public Boolean updatePwd(SysUpdateUserPwdDTO dto) {
+        return userService.updatePwd(dto);
     }
 }
