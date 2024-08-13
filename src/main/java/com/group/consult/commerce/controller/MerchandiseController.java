@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Merchandise Controller")
-@RequestMapping("/api/merchandise")
+@RequestMapping("/api/sys/merchandise")
 public class MerchandiseController {
 
     @Autowired
@@ -106,7 +106,7 @@ public class MerchandiseController {
      * 获取商品（分页）列表
      *
      * @param pageableDTO PageableDTO
-     * @return List<ApplicationListVO>
+     * @return List<MerchandiseVO>
      * @author Huang, Dylan Bo
      */
     @PostMapping("/fetchMerchandiseList")
@@ -223,7 +223,6 @@ public class MerchandiseController {
             return ApiResult.fail();
         }
     }
-
 
     /**
      * 商品绑定服务类型
