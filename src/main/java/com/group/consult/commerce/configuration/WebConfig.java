@@ -38,10 +38,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         //拦截所有，排除静态资源以及测试资源
-        registry.addInterceptor(securityInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/static/**", "/test/**", "/api/sys/login", "/doc.html", "/**/api-docs/**",
-                "/**/*.ico","/error","/**/*.js", "/**/*.html", "/**/*.css", "/api/sys/captcha/img");
+//        registry.addInterceptor(securityInterceptor)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/static/**", "/test/**", "/api/sys/login", "/doc.html", "/**/api-docs/**",
+//                "/**/*.ico","/error","/**/*.js", "/**/*.html", "/**/*.css", "/api/sys/captcha/img");
     }
 
     @Override

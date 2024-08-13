@@ -95,3 +95,20 @@ CREATE TABLE if not exists `service_type`
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
   DEFAULT CHARSET = utf8mb4 COMMENT = '服务类型表';
+
+
+CREATE TABLE if not exists `notice`
+(
+    `id`                    BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `title`                 VARCHAR(256)    DEFAULT NULL COMMENT '公告标题',
+    `summary`               VARCHAR(1024)   DEFAULT NULL COMMENT '公告摘要',
+    `content`               VARCHAR(1024)   DEFAULT NULL COMMENT '公告内容',
+    `popup`                 INT              DEFAULT '0' COMMENT '登录时弹窗是否启用；0：不启用；1：启用',
+    `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_by`             VARCHAR(100) DEFAULT NULL COMMENT '创建人',
+    `update_time`           datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_by`             VARCHAR(100) DEFAULT NULL COMMENT '更新人',
+    `is_del`                INT          DEFAULT '0' COMMENT '是否删除；0：未删除；1：删除',
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT = '系统公告';
