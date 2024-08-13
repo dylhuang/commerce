@@ -22,6 +22,7 @@ import com.group.consult.commerce.persist.ISysUserRoleService;
 import com.group.consult.commerce.persist.ISysUserService;
 import com.group.consult.commerce.service.ISysUserDomainService;
 import com.group.consult.commerce.utils.GerneralUtil;
+import com.group.consult.commerce.utils.PasswordSaltGeneratorUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,8 +56,8 @@ public class SysUserDomainServiceImpl implements ISysUserDomainService {
         GerneralUtil.assertCheck(userInfo == null, ApiCodeEnum.USER_EXIST);
         SysUser user = new SysUser();
         BeanUtil.copyProperties(userAddDTO, user);
-        //todo 密码处理
-        //user.setPassword(SecurityUtils.encryptPassword(sysUserDto.getPassword()));
+        //密码处理
+        user.setPassword(PasswordSaltGeneratorUtil.encode(userAddDTO.getPassword()));
         Boolean isRes = userService.save(user);
         if (isRes) {
             List<Long> roleIds = userAddDTO.getRoleIds().stream().map(item -> Long.valueOf(item)).collect(
@@ -99,8 +100,8 @@ public class SysUserDomainServiceImpl implements ISysUserDomainService {
     @Override
     public Boolean resetPwd(SysUserResetPwdDTO dto) {
         UpdateWrapper<SysUser> updateWrapper = new UpdateWrapper<>();
-        //todo 密码 String pwd = SecurityUtils.encryptPassword(dto.getPassword());
-        updateWrapper.lambda().set(SysUser::getPassword, "");
+        String pwd = PasswordSaltGeneratorUtil.encode(dto.getPassword());
+        updateWrapper.lambda().set(SysUser::getPassword, pwd);
         updateWrapper.lambda().eq(SysUser::getId, dto.getId());
         return userService.update(updateWrapper);
     }

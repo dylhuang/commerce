@@ -18,6 +18,7 @@ import com.group.consult.commerce.persist.ISysUserService;
 import com.group.consult.commerce.service.ISysLoginDomainService;
 import com.group.consult.commerce.utils.GerneralUtil;
 import com.group.consult.commerce.utils.JwtUtil;
+import com.group.consult.commerce.utils.PasswordSaltGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,9 +63,11 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
         SysUser sysUser = userService.findByUserName(dto.getUsername());
         GerneralUtil.assertCheck(sysUser != null, ApiCodeEnum.USER_PWD_ERROR);
         GerneralUtil.assertCheck(Constants.ZERO.equals(sysUser.getStatus()), ApiCodeEnum.USER_STATUS_ERROR);
-        //todo 用户密码校验
-        //todo 生成token
-        String token = jwtUtil.generateToken("admin");
+        //用户密码校验
+        Boolean checkRes = PasswordSaltGeneratorUtil.match(dto.getPassword(), sysUser.getPassword());
+        GerneralUtil.assertCheck(checkRes, ApiCodeEnum.USER_PWD_ERROR);
+        //3、生成token
+        String token = jwtUtil.generateToken(sysUser.getUserName());
         return token;
     }
 

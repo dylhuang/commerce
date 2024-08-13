@@ -25,10 +25,6 @@ public class UserEditDTO {
     @Schema(description = "用户名", required = true)
     private String userName ;
 
-    @NotBlank(message = "密码必填")
-    @Schema(description = "密码", required = true)
-    private String password;
-
     @Schema(description = "昵称")
     private String nickName ;
 
