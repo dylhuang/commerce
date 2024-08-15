@@ -1,7 +1,6 @@
 package com.group.consult.commerce.configuration;
 
 
-import com.google.common.collect.Lists;
 import com.group.consult.commerce.configuration.interceptors.SecurityInterceptor;
 import com.group.consult.commerce.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 /**
  * @title: web配置
@@ -38,10 +35,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         //拦截所有，排除静态资源以及测试资源
-//        registry.addInterceptor(securityInterceptor)
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/static/**", "/test/**", "/api/sys/login", "/doc.html", "/**/api-docs/**",
-//                "/**/*.ico","/error","/**/*.js", "/**/*.html", "/**/*.css", "/api/sys/captcha/img");
+        registry.addInterceptor(securityInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/static/**", "/test/**", "/api/sys/login", "/doc.html", "/**/api-docs/**",
+                "/**/*.ico","/error","/**/*.js", "/**/*.html", "/**/*.css", "/api/sys/captcha/img");
     }
 
     @Override
