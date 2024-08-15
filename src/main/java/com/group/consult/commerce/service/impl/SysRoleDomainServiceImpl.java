@@ -77,6 +77,7 @@ public class SysRoleDomainServiceImpl implements ISysRoleDomainService {
         boolean resSave = roleService.updateById(role);
 
         GerneralUtil.assertCheck(resSave, ApiCodeEnum.ROLE_SAVE_ERROR);
+        roleMenuService.removeRoleMenu(role.getId());
         roleMenuService.bindRoleMenu(role.getId(), menuIds);
         return Boolean.TRUE;
     }

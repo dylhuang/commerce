@@ -57,4 +57,9 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
     public List<SysMenu> listMenuByRoleId(Long roleId) {
         return this.getBaseMapper().queryMenuByRoleId(roleId);
     }
+
+    @Override
+    public int removeRoleMenu(Long roleId) {
+        return getBaseMapper().deleteRoleMenu(roleId);
+    }
 }
