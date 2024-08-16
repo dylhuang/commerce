@@ -48,7 +48,7 @@ public class RequestLogFilter extends AbstractRequestLoggingFilter {
 
         super.doFilterInternal(requestToUse, responseToUse, filterChain);
 
-    //    logResponse(responseToUse);
+       logResponse(responseToUse);
     }
 
     @Override
