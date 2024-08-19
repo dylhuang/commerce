@@ -93,8 +93,9 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
         List<Long> serviceTypeIdList = merchandiseServiceService.getServiceTypeIdListByMerchandiseId(merchandiseId);
         List<ServiceTypeVO> serviceTypeList = serviceTypeService.getServiceTypeListByIdList(serviceTypeIdList);
         MerchandiseVO merchandiseVO = BeanCopyUtils.copy(entity, MerchandiseVO.class);
-        assert merchandiseVO != null;
-        merchandiseVO.setServiceTypeVOList(serviceTypeList);
+        if(null != merchandiseVO) {
+            merchandiseVO.setServiceTypeVOList(serviceTypeList);
+        }
         return merchandiseVO;
     }
 
