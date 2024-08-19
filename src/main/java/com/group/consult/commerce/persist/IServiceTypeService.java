@@ -74,4 +74,13 @@ public interface IServiceTypeService extends IService<ServiceType> {
      * @throws BusinessException BusinessException
      */
     List<ServiceTypeVO> getAllServiceTypeList(ServiceTypeSearchDTO serviceTypeSearchDTO) throws BusinessException;
+
+    /**
+     * 根据service type id list 获取serviceType列表
+     *
+     * @param serviceTypeIdList serviceTypeIdList
+     * @return List<ServiceTypeVO>
+     * @throws BusinessException BusinessException
+     */
+    List<ServiceTypeVO> getServiceTypeListByIdList(List<Long> serviceTypeIdList) throws BusinessException;
 }

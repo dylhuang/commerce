@@ -112,3 +112,21 @@ CREATE TABLE if not exists `notice`
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
   DEFAULT CHARSET = utf8mb4 COMMENT = '系统公告';
+
+
+CREATE TABLE if not exists `image_space`
+(
+    `id`                    BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `name`                  VARCHAR(256)    DEFAULT NULL COMMENT '图像名称',
+    `description`           VARCHAR(1024)   DEFAULT NULL COMMENT '图像描述',
+    `type`                  VARCHAR(32)     DEFAULT NULL COMMENT '图像类型：10:首页广告位，20:其他',
+    `status`                INT   DEFAULT '0' COMMENT '状态；0：不可使用；1：可使用',
+    `image_url`             VARCHAR(1024)   DEFAULT NULL COMMENT '图像地址',
+    `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_by`             VARCHAR(100) DEFAULT NULL COMMENT '创建人',
+    `update_time`           datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_by`             VARCHAR(100) DEFAULT NULL COMMENT '更新人',
+    `is_del`                INT          DEFAULT '0' COMMENT '是否删除；0：未删除；1：删除',
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT = '图像空间';

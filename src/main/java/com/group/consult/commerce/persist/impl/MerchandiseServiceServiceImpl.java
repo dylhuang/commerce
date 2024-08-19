@@ -1,15 +1,22 @@
 package com.group.consult.commerce.persist.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.consult.commerce.dao.entity.MerchandiseService;
+import com.group.consult.commerce.dao.entity.ServiceType;
 import com.group.consult.commerce.dao.mapper.MerchandiseServiceMapper;
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.persist.IMerchandiseServiceService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 商品服务表 服务实现类
@@ -40,5 +47,25 @@ public class MerchandiseServiceServiceImpl extends ServiceImpl<MerchandiseServic
         } catch (Exception e) {
             throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
         }
+    }
+
+    @Override
+    public List<MerchandiseService> getServiceTypeListByMerchandiseId(Long merchandiseId) throws BusinessException {
+        try {
+            LambdaQueryWrapper<MerchandiseService> wrapper = new LambdaQueryWrapper<MerchandiseService>()
+                    .eq(MerchandiseService::getMerchandiseId, merchandiseId)
+                    .eq(MerchandiseService::getIsDel, 0);
+            return this.list(wrapper);
+        } catch (Exception e) {
+            throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Long> getServiceTypeIdListByMerchandiseId(Long merchandiseId) throws BusinessException {
+        List<MerchandiseService> entityList = this.getServiceTypeListByMerchandiseId(merchandiseId);
+        return entityList.stream()
+                .map(MerchandiseService::getId)
+                .toList();
     }
 }
