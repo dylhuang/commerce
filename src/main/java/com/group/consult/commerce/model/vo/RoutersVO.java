@@ -33,6 +33,9 @@ public class RoutersVO {
     @Schema(description = "组件名称")
     private String component;
 
+    @Schema(description = "图标")
+    private String icon;
+
     @Schema(description = "资源路径")
     private String path;
 
