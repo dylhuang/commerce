@@ -13,6 +13,11 @@ public class Constants {
      */
     public static final Integer CAPTCHA_EXPIRATION = 5;
 
+    /**
+     * token-过期时间-小时
+     */
+    public static final int TOKEN_EXPIRE_HOURS = 24 * 10;
+
     public static final Integer ZERO = 0;
 
     public static final Integer ONE = 1;
