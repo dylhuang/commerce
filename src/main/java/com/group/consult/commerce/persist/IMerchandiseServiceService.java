@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.group.consult.commerce.dao.entity.MerchandiseService;
 import com.group.consult.commerce.exception.BusinessException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -32,4 +33,22 @@ public interface IMerchandiseServiceService extends IService<MerchandiseService>
      * @throws BusinessException BusinessException
      */
     void deleteBindByMerchandiseId(Long merchandiseId) throws BusinessException;
+
+    /**
+     * 根据merchandiseId获取serviceTypeId列表
+     *
+     * @param merchandiseId merchandiseId
+     * @return List<MerchandiseService>
+     * @throws BusinessException BusinessException
+     */
+    List<MerchandiseService> getServiceTypeListByMerchandiseId(Long merchandiseId) throws BusinessException;
+
+    /**
+     * 根据merchandiseId获取serviceTypeId列表
+     *
+     * @param merchandiseId merchandiseId
+     * @return List<Long>
+     * @throws BusinessException BusinessException
+     */
+    List<Long> getServiceTypeIdListByMerchandiseId(Long merchandiseId) throws BusinessException;
 }

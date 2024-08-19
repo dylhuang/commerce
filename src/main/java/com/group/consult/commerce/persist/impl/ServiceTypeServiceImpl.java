@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import com.group.consult.commerce.dao.entity.Merchandise;
 import com.group.consult.commerce.dao.entity.ServiceType;
 import com.group.consult.commerce.dao.mapper.ServiceTypeMapper;
 import com.group.consult.commerce.exception.BusinessException;
@@ -13,9 +11,9 @@ import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.ServiceTypePageableDTO;
 import com.group.consult.commerce.model.dto.ServiceTypeSearchDTO;
-import com.group.consult.commerce.model.vo.MerchandiseVO;
 import com.group.consult.commerce.model.vo.ServiceTypeVO;
 import com.group.consult.commerce.persist.IServiceTypeService;
+import com.group.consult.commerce.utils.BeanCopyUtils;
 import com.group.consult.commerce.utils.SqlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -63,7 +61,7 @@ public class ServiceTypeServiceImpl extends ServiceImpl<ServiceTypeMapper, Servi
     @Override
     public ServiceType getServiceTypeByIdNotNull(long serviceTypeId) throws BusinessException {
         ServiceType entity = this.getServiceTypeById(serviceTypeId);
-        if(null == entity) {
+        if (null == entity) {
             throw new BusinessException(ApiCodeEnum.MERCHANDISE_QUERY_NOT_NULL);
         }
         return entity;
@@ -100,5 +98,15 @@ public class ServiceTypeServiceImpl extends ServiceImpl<ServiceTypeMapper, Servi
                 .ifPresent(o -> wrapper.eq(ServiceType::getServiceTypeStatus, o));
         List<ServiceType> entityList = this.list(wrapper);
         return entityList.stream().map(ServiceTypeVO::of).toList();
+    }
+
+    @Override
+    public List<ServiceTypeVO> getServiceTypeListByIdList(List<Long> serviceTypeIdList) throws BusinessException {
+        try {
+            List<ServiceType> entityList = this.baseMapper.selectBatchIds(serviceTypeIdList);
+            return BeanCopyUtils.copyBeanList(entityList, ServiceTypeVO.class);
+        } catch (Exception e) {
+            throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
+        }
     }
 }

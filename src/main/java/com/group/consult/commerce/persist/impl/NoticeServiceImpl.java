@@ -62,7 +62,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     public Notice getNoticeByIdNotNull(long noticeId) throws BusinessException {
         Notice entity = this.getNoticeById(noticeId);
         if (null == entity) {
-            throw new BusinessException(ApiCodeEnum.MERCHANDISE_QUERY_NOT_NULL);
+            throw new BusinessException(ApiCodeEnum.NOTICE_QUERY_NOT_NULL);
         }
         return entity;
     }

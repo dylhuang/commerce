@@ -42,6 +42,10 @@ public enum ApiCodeEnum {
      */
     PLACEHOLDER_2(20000, "占位"),
 
+    IMAGE_QUERY_NOT_NULL(20001, "查询不到该图像"),
+
+    NOTICE_QUERY_NOT_NULL(30001, "查询不到该公告"),
+
     /**
      * 3____ 商品管理
      */

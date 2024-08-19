@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 商品VO
@@ -74,6 +75,9 @@ public class MerchandiseVO extends BaseVO implements Serializable {
      */
     @Schema(description = "To C价格是否可销售；0：不可销售；1：可销售")
     private Integer customerEnable;
+
+    @Schema(description = "关联的服务类型")
+    private List<ServiceTypeVO> serviceTypeVOList;
 
     public static MerchandiseVO of(Merchandise merchandise) {
         return MerchandiseVO.builder()
