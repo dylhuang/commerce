@@ -90,7 +90,13 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     @Override
     public MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException {
         Merchandise entity = merchandiseService.getMerchandiseById(merchandiseId);
-        return BeanCopyUtils.copy(entity, MerchandiseVO.class);
+        List<Long> serviceTypeIdList = merchandiseServiceService.getServiceTypeIdListByMerchandiseId(merchandiseId);
+        List<ServiceTypeVO> serviceTypeList = serviceTypeService.getServiceTypeListByIdList(serviceTypeIdList);
+        MerchandiseVO merchandiseVO = BeanCopyUtils.copy(entity, MerchandiseVO.class);
+        if(null != merchandiseVO) {
+            merchandiseVO.setServiceTypeVOList(serviceTypeList);
+        }
+        return merchandiseVO;
     }
 
     @Override

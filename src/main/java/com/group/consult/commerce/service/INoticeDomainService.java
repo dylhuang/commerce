@@ -8,7 +8,7 @@ import com.group.consult.commerce.model.dto.NoticePageableDTO;
 import com.group.consult.commerce.model.vo.NoticeVO;
 
 /**
- * 商品领域模型相关接口
+ * 系统公告领域模型相关接口
  *
  * @author huangbo
  * @since 2024/08/08
