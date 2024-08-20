@@ -65,7 +65,7 @@ public class MerchandiseServiceServiceImpl extends ServiceImpl<MerchandiseServic
     public List<Long> getServiceTypeIdListByMerchandiseId(Long merchandiseId) throws BusinessException {
         List<MerchandiseService> entityList = this.getServiceTypeListByMerchandiseId(merchandiseId);
         return entityList.stream()
-                .map(MerchandiseService::getId)
+                .map(MerchandiseService::getServiceTypeId)
                 .toList();
     }
 }
