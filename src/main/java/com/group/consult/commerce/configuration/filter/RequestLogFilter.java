@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -12,13 +13,14 @@ import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 请求日志
  */
 @Component
 @Order(100)
+@Slf4j
 public class RequestLogFilter extends AbstractRequestLoggingFilter {
 
     public RequestLogFilter() {
@@ -53,20 +55,21 @@ public class RequestLogFilter extends AbstractRequestLoggingFilter {
 
     @Override
     protected void beforeRequest(HttpServletRequest request, String message) {
-        logger.info(message);
+        log.info(message);
     }
 
     @Override
     protected void afterRequest(HttpServletRequest request, String message) {
-       // logger.info(message);
+        log.info(message);
     }
 
     private void logResponse(HttpServletResponse response) throws IOException {
         if (response instanceof ContentCachingResponseWrapper) {
             ContentCachingResponseWrapper responseWrapper = (ContentCachingResponseWrapper) response;
             if (isLogResponse(responseWrapper)) {
-                String content = new String(responseWrapper.getContentAsByteArray(), Charset.forName(responseWrapper.getCharacterEncoding()));
-                logger.info("===Response: " + content);
+
+                String content = new String(responseWrapper.getContentAsByteArray(), StandardCharsets.UTF_8);
+                log.info("Response:{},charset={}", content, responseWrapper.getCharacterEncoding());
             }
             responseWrapper.copyBodyToResponse();
         }
