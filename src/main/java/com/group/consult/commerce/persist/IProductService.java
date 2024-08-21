@@ -10,6 +10,9 @@ import com.group.consult.commerce.model.dto.MerchandisePageableDTO;
 import com.group.consult.commerce.model.dto.ProductPageableDTO;
 import com.group.consult.commerce.model.vo.MerchandiseVO;
 import com.group.consult.commerce.model.vo.ProductVO;
+import com.group.consult.commerce.model.vo.ServiceTypeVO;
+
+import java.util.List;
 
 /**
  * 商品表 服务类
@@ -63,5 +66,14 @@ public interface IProductService extends IService<Product> {
      * @throws BusinessException BusinessException
      */
     PageResult<ProductVO> getProductList(ProductPageableDTO pageableDTO) throws BusinessException;
+
+    /**
+     * 根据product id list 获取Product列表
+     *
+     * @param productIdList productIdList
+     * @return List<ProductVO>
+     * @throws BusinessException BusinessException
+     */
+    List<ProductVO> getProductListByIdList(List<Long> productIdList) throws BusinessException;
 
 }

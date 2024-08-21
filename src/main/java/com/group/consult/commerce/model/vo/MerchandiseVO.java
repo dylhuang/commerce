@@ -76,8 +76,8 @@ public class MerchandiseVO extends BaseVO implements Serializable {
     @Schema(description = "To C价格是否可销售；0：不可销售；1：可销售")
     private Integer customerEnable;
 
-    @Schema(description = "关联的服务类型")
-    private List<ServiceTypeVO> serviceTypeVOList;
+    @Schema(description = "关联的产品")
+    private List<ProductVO> productVOList;
 
     public static MerchandiseVO of(Merchandise merchandise) {
         return MerchandiseVO.builder()

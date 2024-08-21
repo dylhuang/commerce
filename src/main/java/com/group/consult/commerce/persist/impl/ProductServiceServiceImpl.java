@@ -34,7 +34,7 @@ public class ProductServiceServiceImpl extends ServiceImpl<ProductServiceMapper,
     @Override
     public void deleteBindByProductId(Long productId) throws BusinessException {
         try {
-            int i = this.baseMapper.removeByMerchandiseId(productId);
+            int i = this.baseMapper.removeByProductId(productId);
             if (i > 0) {
                 log.info("成功清除商品和服务类型的绑定关系");
             }

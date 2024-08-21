@@ -15,6 +15,7 @@ import com.group.consult.commerce.utils.BeanCopyUtils;
 import com.group.consult.commerce.utils.GerneralUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     private IServiceTypeService serviceTypeService;
 
     @Autowired
-    private IProductServiceService merchandiseServiceService;
+    private IProductServiceService productServiceService;
 
     @Override
     public boolean addMerchandiseInfo(MerchandiseAdditionDTO merchandiseAdditionDTO) throws BusinessException {
@@ -95,17 +96,28 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
 
     @Override
     public PageResult<MerchandiseVO> obtainMerchandiseList(MerchandisePageableDTO pageableDTO) throws BusinessException {
-        return merchandiseService.getMerchandiseList(pageableDTO);
+        PageResult<MerchandiseVO> pageResult = merchandiseService.getMerchandiseList(pageableDTO);
+        List<MerchandiseVO> merchandiseList = pageResult.getList();
+        merchandiseList.forEach(merchandise -> {
+            Long merchandiseId = merchandise.getId();
+            List<Long> productIdList = merchandiseProductService.getProductIdListByMerchandiseId(merchandiseId);
+            if(!CollectionUtils.isEmpty(productIdList)) {
+                List<ProductVO> productList = productService.getProductListByIdList(productIdList);
+                merchandise.setProductVOList(productList);
+            }
+        });
+        pageResult.setList(merchandiseList);
+        return pageResult;
     }
 
     @Override
     public MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException {
         Merchandise entity = merchandiseService.getMerchandiseById(merchandiseId);
-        List<Long> serviceTypeIdList = merchandiseServiceService.getServiceTypeIdListByProductId(merchandiseId);
-        List<ServiceTypeVO> serviceTypeList = serviceTypeService.getServiceTypeListByIdList(serviceTypeIdList);
+        List<Long> merchandiseProductIdList = merchandiseProductService.getProductIdListByMerchandiseId(merchandiseId);
+        List<ProductVO> productList = productService.getProductListByIdList(merchandiseProductIdList);
         MerchandiseVO merchandiseVO = BeanCopyUtils.copy(entity, MerchandiseVO.class);
         if (null != merchandiseVO) {
-            merchandiseVO.setServiceTypeVOList(serviceTypeList);
+            merchandiseVO.setProductVOList(productList);
         }
         return merchandiseVO;
     }
@@ -155,17 +167,31 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
 
     @Override
     public PageResult<ProductVO> obtainProductList(ProductPageableDTO pageableDTO) throws BusinessException {
-        return productService.getProductList(pageableDTO);
+        PageResult<ProductVO> pageResult = productService.getProductList(pageableDTO);
+        List<ProductVO> productList = pageResult.getList();
+        productList.forEach(product -> {
+            Long productId = product.getId();
+            List<Long> serviceTypeIdList = productServiceService.getServiceTypeIdListByProductId(productId);
+            if(!CollectionUtils.isEmpty(serviceTypeIdList)) {
+                List<ServiceTypeVO> serviceTypeList = serviceTypeService.getServiceTypeListByIdList(serviceTypeIdList);
+                product.setServiceTypeVOList(serviceTypeList);
+            }
+        });
+        pageResult.setList(productList);
+        return pageResult;
     }
 
     @Override
     public ProductVO obtainProductVO(long productId) throws BusinessException {
+        ProductVO productVO = null;
         Product entity = productService.getProductById(productId);
-        List<Long> serviceTypeIdList = merchandiseServiceService.getServiceTypeIdListByProductId(productId);
-        List<ServiceTypeVO> serviceTypeList = serviceTypeService.getServiceTypeListByIdList(serviceTypeIdList);
-        ProductVO productVO = BeanCopyUtils.copy(entity, ProductVO.class);
-        if (null != productVO) {
-            productVO.setServiceTypeVOList(serviceTypeList);
+        List<Long> serviceTypeIdList = productServiceService.getServiceTypeIdListByProductId(productId);
+        if (!CollectionUtils.isEmpty(serviceTypeIdList)) {
+            List<ServiceTypeVO> serviceTypeList = serviceTypeService.getServiceTypeListByIdList(serviceTypeIdList);
+            productVO = BeanCopyUtils.copy(entity, ProductVO.class);
+            if (null != productVO) {
+                productVO.setServiceTypeVOList(serviceTypeList);
+            }
         }
         return productVO;
     }
@@ -205,7 +231,7 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     public boolean bindProductService(ProductBindDTO productBindDTO) throws BusinessException {
         Long productId = productBindDTO.getProductId();
         // 删除当前产品的绑定关系
-        merchandiseServiceService.deleteBindByProductId(productId);c
+        productServiceService.deleteBindByProductId(productId);
         // 新增产品的绑定关系
         List<Long> serviceTypeIdList = productBindDTO.getServiceTypeIdList();
         List<ProductService> productServicesList = Lists.newArrayList();
@@ -213,6 +239,6 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
             ProductService entity = ProductService.builder().productId(productId).serviceTypeId(serviceTypeId).build();
             productServicesList.add(entity);
         });
-        return merchandiseServiceService.batchInsertProductService(productServicesList);
+        return productServiceService.batchInsertProductService(productServicesList);
     }
 }

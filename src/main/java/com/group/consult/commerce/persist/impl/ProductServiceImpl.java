@@ -5,13 +5,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.consult.commerce.dao.entity.Product;
+import com.group.consult.commerce.dao.entity.ServiceType;
 import com.group.consult.commerce.dao.mapper.ProductMapper;
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.ProductPageableDTO;
 import com.group.consult.commerce.model.vo.ProductVO;
+import com.group.consult.commerce.model.vo.ServiceTypeVO;
 import com.group.consult.commerce.persist.IProductService;
+import com.group.consult.commerce.utils.BeanCopyUtils;
 import com.group.consult.commerce.utils.SqlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -83,6 +86,16 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             Page<Product> page = this.page(Page.of(pageableDTO.getPageNum(), pageableDTO.getPageSize()), wrapper);
             List<ProductVO> resultList = page.getRecords().stream().map(ProductVO::of).collect(Collectors.toList());
             return PageResult.of(resultList, page);
+        } catch (Exception e) {
+            throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ProductVO> getProductListByIdList(List<Long> productIdList) throws BusinessException {
+        try {
+            List<Product> entityList = this.baseMapper.selectBatchIds(productIdList);
+            return BeanCopyUtils.copyBeanList(entityList, ProductVO.class);
         } catch (Exception e) {
             throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
         }
