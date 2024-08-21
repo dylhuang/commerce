@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -28,6 +29,11 @@ public class GlobalDomainServiceImpl implements IGlobalDomainService {
     public boolean addImageSpaceInfo(ImageSpaceAdditionDTO imageSpaceAdditionDTO) throws BusinessException {
         ImageSpace imageSpace = BeanCopyUtils.copy(imageSpaceAdditionDTO, ImageSpace.class);
         return imageSpaceService.insertImageSpace(imageSpace);
+    }
+
+    @Override
+    public String addImageToOss(MultipartFile file) throws BusinessException {
+        return "/oss/commerce/" + file.getName();
     }
 
     @Override

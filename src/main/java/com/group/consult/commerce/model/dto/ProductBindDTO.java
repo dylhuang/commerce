@@ -1,9 +1,7 @@
 package com.group.consult.commerce.model.dto;
 
-import com.group.consult.commerce.model.vo.BaseVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MerchandiseBindDTO implements Serializable {
+public class ProductBindDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -7931415515062439191L;
@@ -28,8 +26,8 @@ public class MerchandiseBindDTO implements Serializable {
     /**
      * 服务类型名称
      */
-    @Schema(description = "商品ID")
-    private Long merchandiseId;
+    @Schema(description = "产品ID")
+    private Long productId;
 
     /**
      * 服务类型名称

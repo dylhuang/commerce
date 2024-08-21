@@ -11,6 +11,7 @@ import com.group.consult.commerce.service.IGlobalDomainService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 图像空间 前端控制器
@@ -37,6 +38,23 @@ public class GlobalController {
         try {
             boolean flag = globalDomainService.addImageSpaceInfo(imageSpaceAdditionDTO);
             return ApiResult.success(flag);
+        } catch (BusinessException e) {
+            return ApiResult.fail();
+        }
+    }
+
+    /**
+     * 新增全局图像并返回OSS存储的URL地址
+     *
+     * @param file MultipartFile
+     * @return ApiResult<String>
+     */
+    @PostMapping("/addImageToCloud")
+    @Operation(summary = "新增全局图像到云", description = "新增全局图像到云")
+    public ApiResult<String> addImageToCloud(@RequestParam(value = "file") MultipartFile file) {
+        try {
+            String ossUrl = globalDomainService.addImageToOss(file);
+            return ApiResult.success(ossUrl);
         } catch (BusinessException e) {
             return ApiResult.fail();
         }

@@ -5,6 +5,7 @@ import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.*;
 import com.group.consult.commerce.model.vo.ImageSpaceVO;
 import com.group.consult.commerce.model.vo.NoticeVO;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 系统领域模型相关接口
@@ -22,6 +23,15 @@ public interface IGlobalDomainService {
      * @throws BusinessException BusinessException
      */
     boolean addImageSpaceInfo(ImageSpaceAdditionDTO imageSpaceAdditionDTO) throws BusinessException;
+
+    /**
+     * 新增图像空间到云并返回OSS URL
+     *
+     * @param file MultipartFile
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    String addImageToOss(MultipartFile file) throws BusinessException;
 
     /**
      * 根据图像空间ID修改图像空间

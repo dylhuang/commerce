@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 商品服务表
  *
  * @author Huang, Dylan Bo
- * @since 2024/08/07
+ * @since 2024/08/20
  */
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -20,11 +20,11 @@ import java.io.Serializable;
 @Data
 @SuperBuilder
 @ToString
-@TableName("merchandise_service")
-public class MerchandiseService extends BaseEntity implements Serializable {
+@TableName("merchandise_product")
+public class MerchandiseProduct extends BaseEntity implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 2488573555398635945L;
+    private static final long serialVersionUID = -4243769690429761139L;
 
     /**
      * 商品ID
@@ -33,8 +33,14 @@ public class MerchandiseService extends BaseEntity implements Serializable {
     private Long merchandiseId;
 
     /**
-     * 服务类型ID
+     * 产品ID
      */
-    @TableField("service_type_id")
-    private Long serviceTypeId;
+    @TableField("product_id")
+    private Long productId;
+
+    /**
+     * 产品个数
+     */
+    @TableField("product_number")
+    private Integer productNumber;
 }

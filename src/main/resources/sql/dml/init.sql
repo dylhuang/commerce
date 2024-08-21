@@ -67,10 +67,43 @@ CREATE TABLE if not exists `merchandise`
   DEFAULT CHARSET = utf8mb4 COMMENT = '商品表';
 
 
-CREATE TABLE if not exists `merchandise_service`
+CREATE TABLE if not exists `merchandise_product`
 (
     `id`                    BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `merchandise_id`        BIGINT  DEFAULT NULL COMMENT '商品ID',
+    `product_id`            BIGINT  DEFAULT NULL COMMENT '产品ID',
+    `product_number`        INT          DEFAULT null COMMENT '产品个数',
+    `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_by`             VARCHAR(100) DEFAULT NULL COMMENT '创建人',
+    `update_time`           datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_by`             VARCHAR(100) DEFAULT NULL COMMENT '更新人',
+    `is_del`                INT          DEFAULT '0' COMMENT '是否删除；0：未删除；1：删除',
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT = '商品产品表';
+
+
+CREATE TABLE if not exists `product`
+(
+    `id`                    BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `code`                  VARCHAR(50)  DEFAULT NULL COMMENT '产品编码',
+    `name`                  VARCHAR(50)  DEFAULT NULL COMMENT '产品名称',
+    `status`                VARCHAR(36)  DEFAULT '10' COMMENT '产品状态 10:待发布  20:已发布',
+    `price`                 DECIMAL(10, 3) DEFAULT NULL COMMENT '产品单价',
+    `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_by`             VARCHAR(100) DEFAULT NULL COMMENT '创建人',
+    `update_time`           datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_by`             VARCHAR(100) DEFAULT NULL COMMENT '更新人',
+    `is_del`                INT          DEFAULT '0' COMMENT '是否删除；0：未删除；1：删除',
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT = '产品表';
+
+
+CREATE TABLE if not exists `product_service`
+(
+    `id`                    BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `product_id`            BIGINT  DEFAULT NULL COMMENT '商品ID',
     `service_type_id`       BIGINT  DEFAULT NULL COMMENT '服务类型ID',
     `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `create_by`             VARCHAR(100) DEFAULT NULL COMMENT '创建人',
@@ -79,7 +112,7 @@ CREATE TABLE if not exists `merchandise_service`
     `is_del`                INT          DEFAULT '0' COMMENT '是否删除；0：未删除；1：删除',
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
-  DEFAULT CHARSET = utf8mb4 COMMENT = '商品服务表';
+  DEFAULT CHARSET = utf8mb4 COMMENT = '产品服务表';
 
 
 CREATE TABLE if not exists `service_type`

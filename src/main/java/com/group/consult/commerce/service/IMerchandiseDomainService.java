@@ -4,6 +4,7 @@ import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.PageResult;
 import com.group.consult.commerce.model.dto.*;
 import com.group.consult.commerce.model.vo.MerchandiseVO;
+import com.group.consult.commerce.model.vo.ProductVO;
 import com.group.consult.commerce.model.vo.ServiceTypeVO;
 
 import java.util.List;
@@ -71,6 +72,74 @@ public interface IMerchandiseDomainService {
      */
     MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException;
 
+
+    // =============================================================
+
+
+    /**
+     * 新增产品信息
+     *
+     * @param productAdditionDTO ProductAdditionDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean addProductInfo(ProductAdditionDTO productAdditionDTO) throws BusinessException;
+
+    /**
+     * 根据产品ID修改产品信息
+     *
+     * @param productEditionDTO ProductEditionDTO
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean editProductById(ProductEditionDTO productEditionDTO) throws BusinessException;
+
+    /**
+     * 根据产品ID删除产品
+     *
+     * @param productId productId
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean deleteProductById(long productId) throws BusinessException;
+
+    /**
+     * 根据产品ID更改产品状态
+     *
+     * @param productId productId
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean ableProductById(long productId) throws BusinessException;
+
+    /**
+     * 获取产品(分页)列表
+     *
+     * @param pageableDTO ProductPageableDTO
+     * @return PageResult<ProductVO>
+     * @throws BusinessException BusinessException
+     * @author Huang, Dylan Bo
+     */
+    PageResult<ProductVO> obtainProductList(ProductPageableDTO pageableDTO) throws BusinessException;
+
+    /**
+     * 根据商品ID获取商品信息详情
+     *
+     * @param productId productId
+     * @return ProductVO
+     * @throws BusinessException BusinessException
+     */
+    ProductVO obtainProductVO(long productId) throws BusinessException;
+
+
+    // =============================================================
+
+
+
+
+
+
+
     /**
      * 新增服务类型
      *
@@ -118,12 +187,12 @@ public interface IMerchandiseDomainService {
     ServiceTypeVO obtainServiceType(long serviceTypeId) throws BusinessException;
 
     /**
-     * 绑定商品和服务类型
+     * 绑定产品和服务类型
      *
-     * @param merchandiseBindDTO MerchandiseBindDTO
+     * @param productBindDTO MerchandiseBindDTO
      * @return boolean
      * @throws BusinessException BusinessException
      */
-    boolean bindMerchandiseService(MerchandiseBindDTO merchandiseBindDTO) throws BusinessException;
+    boolean bindProductService(ProductBindDTO productBindDTO) throws BusinessException;
 
 }

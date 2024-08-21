@@ -137,6 +137,26 @@ public class MerchandiseController {
         }
     }
 
+
+
+
+
+
+
+
+
+
+    // ===============================================
+
+
+
+
+
+
+
+
+
+
     /**
      * 新增服务类型
      *
@@ -227,14 +247,14 @@ public class MerchandiseController {
     /**
      * 商品绑定服务类型
      *
-     * @param merchandiseBindDTO MerchandiseBindVO
+     * @param productBindDTO MerchandiseBindVO
      * @return Boolean
      */
     @PostMapping("/bindMerchandiseService")
     @Operation(summary = "商品绑定服务类型", description = "商品绑定服务类型 / 清除商品绑定服务类型")
-    public ApiResult<Boolean> bindMerchandiseService(@RequestBody MerchandiseBindDTO merchandiseBindDTO) {
+    public ApiResult<Boolean> bindMerchandiseService(@RequestBody ProductBindDTO productBindDTO) {
         try {
-            boolean flag = merchandiseDomainService.bindMerchandiseService(merchandiseBindDTO);
+            boolean flag = merchandiseDomainService.bindProductService(productBindDTO);
             return ApiResult.success(flag);
         } catch (BusinessException e) {
             return ApiResult.fail();
