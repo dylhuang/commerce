@@ -27,7 +27,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Merchandise Controller")
+@Tag(name = "Service Type Controller")
 @RequestMapping("/api/sys/service")
 public class ServiceTypeController {
 
