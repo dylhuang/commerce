@@ -1,5 +1,7 @@
 package com.group.consult.commerce.utils;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.ApiCodeEnum;
 
@@ -21,5 +23,9 @@ public class GerneralUtil {
         if (!exp) {
             throw new BusinessException(codeEnum);
         }
+    }
+
+    public static String randomCharacter(){
+        return RandomUtil.randomStringUpper(10);
     }
 }

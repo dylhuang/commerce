@@ -5,6 +5,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
@@ -45,4 +46,9 @@ public class MerchandiseEditionDTO implements Serializable {
      * To C价格是否可销售；0：不可销售；1：可销售
      */
     private Integer customerEnable;
+
+    /**
+     * 商品产品信息
+     */
+    private List<MerchandiseProductRelationDTO> relationList;
 }
