@@ -1,5 +1,6 @@
 package com.group.consult.commerce.service.impl;
 
+import com.google.common.collect.Lists;
 import com.group.consult.commerce.dao.entity.*;
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.ApiCodeEnum;
@@ -136,9 +137,9 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
         entity.setCode(GerneralUtil.randomCharacter());
         boolean productFlag = productService.insertProduct(entity);
         List<Long> relationList = productAdditionDTO.getServiceTypeIdList();
-        List<ProductService> productServiceList = BeanCopyUtils.copyBeanList(relationList, ProductService.class);
-        productServiceList.forEach(temp -> {
-            temp.setProductId(entity.getId());
+        List<ProductService> productServiceList = Lists.newArrayList();
+        relationList.forEach(temp -> {
+            productServiceList.add(ProductService.builder().productId(entity.getId()).serviceTypeId(temp).build());
         });
         boolean psFlag = productServiceService.batchInsertProductService(productServiceList);
         return productFlag && psFlag;
