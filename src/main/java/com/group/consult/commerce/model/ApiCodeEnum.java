@@ -53,6 +53,10 @@ public enum ApiCodeEnum {
 
     MERCHANDISE_QUERY_NOT_NULL(30001, "查询不到该商品"),
 
+    PRODUCT_EXIST_RELATION_MERCHANDISE(30002, "产品存在关联商品，不能删除"),
+
+    SERVICE_TYPE_EXIST_RELATION_PRODUCT(30003, "服务类型存在关联产品，不能删除"),
+
     /**
      * 4____ 订单管理
      */

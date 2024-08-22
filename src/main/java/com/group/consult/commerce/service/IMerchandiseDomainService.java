@@ -159,6 +159,16 @@ public interface IMerchandiseDomainService {
     boolean editServiceTypeById(ServiceTypeEditionDTO serviceTypeEditionDTO) throws BusinessException;
 
     /**
+     * 根据服务类型ID删除服务类型
+     *
+     * @param serviceTypeId serviceTypeId
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean deleteServiceTypeById(long serviceTypeId) throws BusinessException;
+
+
+    /**
      * 获取服务类型(分页)列表
      *
      * @param pageableDTO ServiceTypePageableDTO
@@ -185,14 +195,5 @@ public interface IMerchandiseDomainService {
      * @throws BusinessException BusinessException
      */
     ServiceTypeVO obtainServiceType(long serviceTypeId) throws BusinessException;
-
-    /**
-     * 绑定产品和服务类型
-     *
-     * @param productBindDTO MerchandiseBindDTO
-     * @return boolean
-     * @throws BusinessException BusinessException
-     */
-    boolean bindProductService(ProductBindDTO productBindDTO) throws BusinessException;
 
 }

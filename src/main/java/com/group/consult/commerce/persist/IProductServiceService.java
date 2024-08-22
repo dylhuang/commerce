@@ -31,7 +31,7 @@ public interface IProductServiceService extends IService<ProductService> {
      * @param productId Long
      * @throws BusinessException BusinessException
      */
-    void deleteBindByProductId(Long productId) throws BusinessException;
+    void deleteRelationByProductId(Long productId) throws BusinessException;
 
     /**
      * 根据productId获取serviceTypeId列表
@@ -43,11 +43,19 @@ public interface IProductServiceService extends IService<ProductService> {
     List<ProductService> getServiceTypeListByProductId(Long productId) throws BusinessException;
 
     /**
-     * 根据merchandiseId获取serviceTypeId列表
+     * 根据productId获取serviceTypeId列表
      *
      * @param productId merchandiseId
      * @return List<Long>
      * @throws BusinessException BusinessException
      */
     List<Long> getServiceTypeIdListByProductId(Long productId) throws BusinessException;
+
+    /**
+     * 根据serviceTypeId判断是否存在当前serviceTypeId是否和产品有关系
+     * @param serviceTypeId serviceTypeId
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean existRelationByServiceTypeId(Long serviceTypeId) throws BusinessException;
 }

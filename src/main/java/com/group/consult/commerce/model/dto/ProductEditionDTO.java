@@ -5,6 +5,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
@@ -30,4 +31,9 @@ public class ProductEditionDTO implements Serializable {
      * 产品单价
      */
     private BigDecimal price;
+
+    /**
+     * 服务类型ID列表
+     */
+    private List<Long> serviceTypeIdList;
 }

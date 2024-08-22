@@ -1,17 +1,16 @@
 package com.group.consult.commerce.persist.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.consult.commerce.dao.entity.MerchandiseProduct;
-import com.group.consult.commerce.dao.entity.Product;
 import com.group.consult.commerce.dao.entity.ProductService;
 import com.group.consult.commerce.dao.mapper.MerchandiseProductMapper;
-import com.group.consult.commerce.dao.mapper.ProductServiceMapper;
 import com.group.consult.commerce.exception.BusinessException;
 import com.group.consult.commerce.model.ApiCodeEnum;
 import com.group.consult.commerce.persist.IMerchandiseProductService;
-import com.group.consult.commerce.persist.IProductServiceService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +25,9 @@ import java.util.List;
 @Service
 public class MerchandiseProductServiceImpl extends ServiceImpl<MerchandiseProductMapper, MerchandiseProduct> implements IMerchandiseProductService {
 
+    @Autowired
+    MerchandiseProductMapper merchandiseProductMapper;
+
     @Override
     public boolean batchInsertMerchandiseProduct(List<MerchandiseProduct> merchandiseProductList) throws BusinessException {
         try {
@@ -36,13 +38,16 @@ public class MerchandiseProductServiceImpl extends ServiceImpl<MerchandiseProduc
     }
 
     @Override
-    public void deleteBindByMerchandiseId(Long merchandiseId) throws BusinessException {
+    public void deleteRelationByMerchandiseId(Long merchandiseId) throws BusinessException {
+
         try {
-            int i = 0;
-            //this.baseMapper.removeByMerchandiseId(productId);
-            if (i > 0) {
-                log.info("成功清除商品和服务类型的绑定关系");
-            }
+            LambdaQueryWrapper<MerchandiseProduct> queryWrapper = Wrappers.lambdaQuery();
+
+            queryWrapper.eq(MerchandiseProduct::getMerchandiseId, merchandiseId);
+
+            int rowsAffected = merchandiseProductMapper.delete(queryWrapper);
+
+            System.out.println(rowsAffected + " ============= records deleted.");
         } catch (Exception e) {
             throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
         }
@@ -66,5 +71,17 @@ public class MerchandiseProductServiceImpl extends ServiceImpl<MerchandiseProduc
         return entityList.stream()
                 .map(MerchandiseProduct::getProductId)
                 .toList();
+    }
+
+    @Override
+    public boolean existRelationByProductId(Long productId) throws BusinessException {
+        try {
+            LambdaQueryWrapper<MerchandiseProduct> wrapper = new LambdaQueryWrapper<MerchandiseProduct>()
+                    .eq(MerchandiseProduct::getProductId, productId)
+                    .eq(MerchandiseProduct::getIsDel, 0);
+            return this.exists(wrapper);
+        } catch (Exception e) {
+            throw new BusinessException(ApiCodeEnum.SYSTEM_ERROR, e.getMessage());
+        }
     }
 }

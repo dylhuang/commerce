@@ -10,7 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MerchandiseProductAdditionDTO implements Serializable {
+public class MerchandiseProductRelationDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -3898056727651164521L;

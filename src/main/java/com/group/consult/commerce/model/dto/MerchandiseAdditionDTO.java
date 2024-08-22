@@ -45,5 +45,5 @@ public class MerchandiseAdditionDTO implements Serializable {
     /**
      * 商品产品信息
      */
-    private List<MerchandiseProductAdditionDTO> relationList;
+    private List<MerchandiseProductRelationDTO> relationList;
 }

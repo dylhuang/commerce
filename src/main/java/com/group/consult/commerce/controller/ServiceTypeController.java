@@ -28,134 +28,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Merchandise Controller")
-@RequestMapping("/api/sys/merchandise")
-public class MerchandiseController {
+@RequestMapping("/api/sys/service")
+public class ServiceTypeController {
 
     @Autowired
     IMerchandiseDomainService merchandiseDomainService;
-
-    /**
-     * 新增商品信息
-     *
-     * @param merchandiseAdditionDTO MerchandiseAdditionDTO
-     * @return Boolean
-     */
-    @PostMapping("/addMerchandise")
-    @Operation(summary = "新增商品信息", description = "新增商品信息")
-    public ApiResult<Boolean> addMerchandise(@RequestBody MerchandiseAdditionDTO merchandiseAdditionDTO) {
-        try {
-            boolean flag = merchandiseDomainService.addMerchandiseInfo(merchandiseAdditionDTO);
-            return ApiResult.success(flag);
-        } catch (BusinessException e) {
-            return ApiResult.fail();
-        }
-    }
-
-    /**
-     * 修改商品信息
-     *
-     * @param merchandiseEditionDTO MerchandiseEditionDTO
-     * @return Boolean
-     */
-    @PostMapping("/editMerchandise")
-    @Operation(summary = "修改商品信息", description = "修改商品信息")
-    public ApiResult<Boolean> editMerchandise(@RequestBody MerchandiseEditionDTO merchandiseEditionDTO) {
-        try {
-            boolean flag = merchandiseDomainService.editMerchandiseById(merchandiseEditionDTO);
-            return ApiResult.success(flag);
-        } catch (BusinessException e) {
-            return ApiResult.fail();
-        }
-    }
-
-    /**
-     * 根据商品ID删除商品
-     *
-     * @param merchandiseId merchandiseId
-     * @return ApiResult<Boolean>
-     */
-    @GetMapping("/deleteMerchandise")
-    @Operation(summary = "根据商品ID删除商品", description = "根据商品ID删除商品")
-    public ApiResult<Boolean> deleteMerchandise(long merchandiseId) {
-        try {
-            boolean flag = merchandiseDomainService.deleteMerchandiseById(merchandiseId);
-            return ApiResult.success(flag);
-        } catch (BusinessException e) {
-            return ApiResult.fail();
-        }
-    }
-
-    /**
-     * 根据商品ID更改商品状态
-     *
-     * @param merchandiseId merchandiseId
-     * @return ApiResult<Boolean>
-     */
-    @GetMapping("/ableMerchandise")
-    @Operation(summary = "根据商品ID更改商品状态：使商品可用/不可用", description = "根据商品ID更改商品状态：使商品可用/不可用")
-    public ApiResult<Boolean> ableMerchandise(long merchandiseId) {
-        try {
-            boolean flag = merchandiseDomainService.ableMerchandiseById(merchandiseId);
-            return ApiResult.success(flag);
-        } catch (BusinessException e) {
-            return ApiResult.fail();
-        }
-    }
-
-    /**
-     * 获取商品（分页）列表
-     *
-     * @param pageableDTO PageableDTO
-     * @return List<MerchandiseVO>
-     * @author Huang, Dylan Bo
-     */
-    @PostMapping("/fetchMerchandiseList")
-    @Operation(summary = "获取商品（分页）列表", description = "分页查询商品列表")
-    public ApiResult<PageResult<MerchandiseVO>> fetchMerchandiseList(@RequestBody MerchandisePageableDTO pageableDTO) {
-        try {
-            PageResult<MerchandiseVO> result = merchandiseDomainService.obtainMerchandiseList(pageableDTO);
-            return ApiResult.success(result);
-        } catch (BusinessException e) {
-            return ApiResult.fail();
-        }
-    }
-
-    /**
-     * 根据商品ID查询商品详情
-     *
-     * @param merchandiseId merchandiseId
-     * @return ApiResult<Boolean>
-     */
-    @GetMapping("/fetchMerchandise")
-    @Operation(summary = "根据商品ID查询商品详情", description = "根据商品ID查询商品详情")
-    public ApiResult<MerchandiseVO> fetchMerchandise(long merchandiseId) {
-        try {
-            MerchandiseVO merchandiseVO = merchandiseDomainService.obtainMerchandise(merchandiseId);
-            return ApiResult.success(merchandiseVO);
-        } catch (BusinessException e) {
-            return ApiResult.fail();
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-    // ===============================================
-
-
-
-
-
-
-
-
-
 
     /**
      * 新增服务类型
@@ -185,6 +62,23 @@ public class MerchandiseController {
     public ApiResult<Boolean> editMerchandiseServiceType(@RequestBody ServiceTypeEditionDTO serviceTypeEditionDTO) {
         try {
             boolean flag = merchandiseDomainService.editServiceTypeById(serviceTypeEditionDTO);
+            return ApiResult.success(flag);
+        } catch (BusinessException e) {
+            return ApiResult.fail();
+        }
+    }
+
+    /**
+     * 根据服务类型ID删除服务类型ID
+     *
+     * @param serviceTypeId serviceTypeId
+     * @return ApiResult<Boolean>
+     */
+    @GetMapping("/deleteServiceType")
+    @Operation(summary = "根据服务类型ID删除服务类型ID", description = "根据服务类型ID删除服务类型ID")
+    public ApiResult<Boolean> deleteServiceType(long serviceTypeId) {
+        try {
+            boolean flag = merchandiseDomainService.deleteServiceTypeById(serviceTypeId);
             return ApiResult.success(flag);
         } catch (BusinessException e) {
             return ApiResult.fail();

@@ -33,7 +33,7 @@ public interface IMerchandiseProductService extends IService<MerchandiseProduct>
      * @param merchandiseId Long
      * @throws BusinessException BusinessException
      */
-    void deleteBindByMerchandiseId(Long merchandiseId) throws BusinessException;
+    void deleteRelationByMerchandiseId(Long merchandiseId) throws BusinessException;
 
     /**
      * 根据merchandiseId获取商品产品列表
@@ -52,4 +52,12 @@ public interface IMerchandiseProductService extends IService<MerchandiseProduct>
      * @throws BusinessException BusinessException
      */
     List<Long> getProductIdListByMerchandiseId(Long merchandiseId) throws BusinessException;
+
+    /**
+     * 根据productId判断是否存在当前productId是否和商品有关系
+     * @param productId productId
+     * @return boolean
+     * @throws BusinessException BusinessException
+     */
+    boolean existRelationByProductId(Long productId) throws BusinessException;
 }
