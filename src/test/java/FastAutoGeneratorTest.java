@@ -13,7 +13,7 @@ import java.util.Collections;
 public class FastAutoGeneratorTest {
 
     public static void main(String[] args) {
-        FastAutoGenerator.create("jdbc:mysql://192.168.119.130:3306/app_bank", "root", "NewMysql*963.")
+        FastAutoGenerator.create("jdbc:mysql://47.108.117.127:3306/standard", "root", "Yuxiu!@#123")
                 // 全局配置
                 .globalConfig(builder -> builder
                         // 设置作者 todo
@@ -46,7 +46,7 @@ public class FastAutoGeneratorTest {
                 .strategyConfig(builder -> {
                     builder
                             // 设置需要生成的表名 todo
-                            .addInclude("sys_captcha_code");
+                            .addInclude("assign_form","back_form","customer","customer_profile","order");
                     // Entity 策略配置
                     builder.entityBuilder()
                             .enableFileOverride()
