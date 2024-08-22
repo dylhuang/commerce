@@ -46,7 +46,7 @@ public class FastAutoGeneratorTest {
                 .strategyConfig(builder -> {
                     builder
                             // 设置需要生成的表名 todo
-                            .addInclude("assign_form","back_form","customer","customer_profile","order");
+                            .addInclude("assign_form","back_form","customer","customer_profile","order","customer_rights", "report_form","service_pack","service_usage_log");
                     // Entity 策略配置
                     builder.entityBuilder()
                             .enableFileOverride()
