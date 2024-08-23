@@ -1,5 +1,6 @@
 package com.group.consult.commerce.model.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.group.consult.commerce.dao.entity.Product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -52,6 +53,12 @@ public class ProductVO extends BaseVO implements Serializable {
      */
     @Schema(description = "产品单价")
     private BigDecimal price;
+
+    /**
+     * 产品个数
+     */
+    @Schema(description = "产品个数")
+    private Integer productNumber;
 
     /**
      * 关联的服务类型

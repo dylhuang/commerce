@@ -20,6 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -108,9 +111,22 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
         List<MerchandiseVO> merchandiseList = pageResult.getList();
         merchandiseList.forEach(merchandise -> {
             Long merchandiseId = merchandise.getId();
-            List<Long> productIdList = merchandiseProductService.getProductIdListByMerchandiseId(merchandiseId);
+            List<MerchandiseProduct> merchandiseProductList = merchandiseProductService.getMerchandiseProductListByMerchandiseId(merchandiseId);
+
+            List<Long> productIdList = merchandiseProductList.stream()
+                    .map(MerchandiseProduct::getProductId)
+                    .toList();
+
+            Map<Long, MerchandiseProduct> productMap = merchandiseProductList.stream()
+                    .collect(Collectors.toMap(MerchandiseProduct::getProductId, product -> product));
+
+//            List<Long> productIdList = merchandiseProductService.getProductIdListByMerchandiseId(merchandiseId);
+
             if (!CollectionUtils.isEmpty(productIdList)) {
                 List<ProductVO> productList = productService.getProductListByIdList(productIdList);
+                productList.forEach(product -> {
+                    product.setProductNumber(productMap.get(product.getId()).getProductNumber());
+                });
                 merchandise.setProductVOList(productList);
             }
         });
@@ -121,8 +137,22 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     @Override
     public MerchandiseVO obtainMerchandise(long merchandiseId) throws BusinessException {
         Merchandise entity = merchandiseService.getMerchandiseById(merchandiseId);
-        List<Long> merchandiseProductIdList = merchandiseProductService.getProductIdListByMerchandiseId(merchandiseId);
+
+        List<MerchandiseProduct> merchandiseProductList = merchandiseProductService.getMerchandiseProductListByMerchandiseId(merchandiseId);
+
+        List<Long> merchandiseProductIdList = merchandiseProductList.stream()
+                .map(MerchandiseProduct::getProductId)
+                .toList();
+
+        Map<Long, MerchandiseProduct> productMap = merchandiseProductList.stream()
+                .collect(Collectors.toMap(MerchandiseProduct::getProductId, product -> product));
+
+//        List<Long> merchandiseProductIdList = merchandiseProductService.getProductIdListByMerchandiseId(merchandiseId);
         List<ProductVO> productList = productService.getProductListByIdList(merchandiseProductIdList);
+        productList.forEach(product -> {
+            product.setProductNumber(productMap.get(product.getId()).getProductNumber());
+        });
+
         MerchandiseVO merchandiseVO = BeanCopyUtils.copy(entity, MerchandiseVO.class);
         if (null != merchandiseVO) {
             merchandiseVO.setProductVOList(productList);
