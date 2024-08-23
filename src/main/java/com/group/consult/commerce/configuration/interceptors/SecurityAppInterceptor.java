@@ -1,6 +1,5 @@
 package com.group.consult.commerce.configuration.interceptors;
 
-import com.group.consult.commerce.dao.entity.SysUser;
 import com.group.consult.commerce.func.security.SecurityContextHolder;
 import com.group.consult.commerce.persist.ISysUserService;
 import com.group.consult.commerce.service.ISysLoginDomainService;
@@ -14,16 +13,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
- *  @title: 安全拦截器
- *  @description: 处理权限校验，token校验,处理pc端
+ *  @title: App端安全拦截器
+ *  @description: 处理权限校验，token校验,处理App端
  *  @author: zl
  *  @date: 2024-08-07
  */
 @Slf4j
 @Component
-public class SecurityInterceptor implements HandlerInterceptor {
+public class SecurityAppInterceptor implements HandlerInterceptor {
 
-    @Value("${commerce.jwt.pc.key:}")
+    @Value("${commerce.jwt.app.key:}")
     private String jwtKey;
 
     @Autowired
@@ -44,28 +43,20 @@ public class SecurityInterceptor implements HandlerInterceptor {
             return false;
         }
         token = token.substring(7);
-        String username = jwtUtil.extractUsername(token);
-        log.info("jwt [manage]===> username={}", username);
-        if (username == null || !jwtUtil.validateToken(token, username)) {
+        String customerNo = jwtUtil.extractUsername(token);
+        log.info("jwt [app] ===> customerNo={}", customerNo);
+        if (customerNo == null || !jwtUtil.validateToken(token, customerNo)) {
             //401 JWT Token is invalid or expired
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
 
         //2、填充登录用户信息
-        SysUser sysUser = userService.findByUserName(username);
-        if (sysUser == null) {
-            //401 无登录用户信息
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return false;
-        }
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUserName(username);
-        loginUser.setUserId(sysUser.getId());
-        loginUser.setPermissionCodes(loginDomainService.getPermissionCodes(sysUser.getId()));
+        AppUser appUser = new AppUser();
+        appUser.setCustomerNo(Long.valueOf(customerNo));
 
         //3、存储登录信息
-        SecurityContextHolder.getContext().setAuth(loginUser);
+        SecurityContextHolder.getContext().setAuth(appUser);
 
         return true;
     }

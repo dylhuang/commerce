@@ -1,0 +1,39 @@
+<configuration>
+
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread][%X{traceId}] %-5level %logger{36} - %msg%n"/>
+    <property name="DIR" value="/home/logs"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DIR}/app.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 每天滚动一次日志文件 -->
+            <fileNamePattern>${DIR}/archived/myapp.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- 保留历史日志文件的最大数量 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 根据Spring Profiles配置根Logger -->
+    <root level="info">
+        <springProfile name="dev">
+            <appender-ref ref="STDOUT" />
+        </springProfile>
+        <springProfile name="!dev">
+            <appender-ref ref="FILE" />
+        </springProfile>
+    </root>
+
+</configuration>

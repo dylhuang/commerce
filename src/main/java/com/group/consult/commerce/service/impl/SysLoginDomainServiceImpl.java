@@ -22,6 +22,7 @@ import com.group.consult.commerce.utils.GerneralUtil;
 import com.group.consult.commerce.utils.JwtUtil;
 import com.group.consult.commerce.utils.PasswordSaltGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,8 +49,8 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
     @Autowired
     private ISysMenuService menuService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    @Value("${commerce.jwt.pc.key:}")
+    private String jwtKey;
 
     @Override
     public String login(LoginDTO dto) {
@@ -69,7 +70,7 @@ public class SysLoginDomainServiceImpl implements ISysLoginDomainService {
         Boolean checkRes = PasswordSaltGeneratorUtil.match(dto.getPassword(), sysUser.getPassword());
         GerneralUtil.assertCheck(checkRes, ApiCodeEnum.USER_PWD_ERROR);
         //3、生成token
-        String token = jwtUtil.generateToken(sysUser.getUserName());
+        String token = new JwtUtil(jwtKey).generateToken(sysUser.getUserName());
         return token;
     }
 

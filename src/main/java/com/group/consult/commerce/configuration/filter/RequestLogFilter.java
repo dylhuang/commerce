@@ -1,11 +1,13 @@
 package com.group.consult.commerce.configuration.filter;
 
+import com.group.consult.commerce.utils.SnowflakeIdGenerator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
@@ -23,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class RequestLogFilter extends AbstractRequestLoggingFilter {
 
+    private static final String TRACE_ID_PREFIX = "TID";
+
     public RequestLogFilter() {
         super();
         super.setIncludeHeaders(true);
@@ -38,19 +42,24 @@ public class RequestLogFilter extends AbstractRequestLoggingFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        HttpServletRequest requestToUse = request;
-        if (!(request instanceof ContentCachingRequestWrapper)) {
-            requestToUse = new ContentCachingRequestWrapper(request);
+        try {
+            MDC.put("traceId", SnowflakeIdGenerator.buildId(TRACE_ID_PREFIX));
+            HttpServletRequest requestToUse = request;
+            if (!(request instanceof ContentCachingRequestWrapper)) {
+                requestToUse = new ContentCachingRequestWrapper(request);
+            }
+
+            HttpServletResponse responseToUse = response;
+            if (!(response instanceof ContentCachingResponseWrapper)) {
+                responseToUse = new ContentCachingResponseWrapper(response);
+            }
+
+            super.doFilterInternal(requestToUse, responseToUse, filterChain);
+
+            logResponse(responseToUse);
+        } finally {
+            MDC.clear();
         }
-
-        HttpServletResponse responseToUse = response;
-        if (!(response instanceof ContentCachingResponseWrapper)) {
-            responseToUse = new ContentCachingResponseWrapper(response);
-        }
-
-        super.doFilterInternal(requestToUse, responseToUse, filterChain);
-
-       logResponse(responseToUse);
     }
 
     @Override

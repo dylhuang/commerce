@@ -17,6 +17,9 @@ common:
 commerce:
   # jwt 秘钥
   jwt:
-    key: eXV4aXUtYm9zcwog
+    pc: #pc端
+      key: eXV4aXUtYm9zcwog
+    app: #app端
+      key: 5a6H5L+uYXBw56uv
   # 验证码类型 math 数组计算 char 字符验证
   captchaType: math

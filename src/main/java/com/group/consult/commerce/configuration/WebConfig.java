@@ -1,11 +1,10 @@
 package com.group.consult.commerce.configuration;
 
 
+import com.group.consult.commerce.configuration.interceptors.SecurityAppInterceptor;
 import com.group.consult.commerce.configuration.interceptors.SecurityInterceptor;
-import com.group.consult.commerce.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,28 +16,28 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author: zl
  * @date: 2024-08-07
  */
+@Slf4j
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private SecurityInterceptor securityInterceptor;
 
-    @Value("${commerce.jwt.key:}")
-    private String jwtKey;
-
-    @Bean
-    public JwtUtil jwtUtil() {
-        return new JwtUtil(jwtKey);
-    }
+    @Autowired
+    private SecurityAppInterceptor appInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        //拦截所有，排除静态资源以及测试资源
+        //安全拦截-后台接口
         registry.addInterceptor(securityInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/static/**", "/test/**", "/api/sys/login", "/doc.html", "/**/api-docs/**",
-                "/**/*.ico","/error","/**/*.js", "/**/*.html", "/**/*.css", "/api/sys/captcha/img");
+                .addPathPatterns("/api/sys/**")
+                .excludePathPatterns("/api/sys/login","/api/sys/captcha/img");
+
+        //安全拦截-移动端接口
+        registry.addInterceptor(appInterceptor)
+                .addPathPatterns("/app/**")
+                .excludePathPatterns("/app/login","/app/register");
     }
 
     @Override
