@@ -23,7 +23,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class SecurityInterceptor implements HandlerInterceptor {
 
-    @Value("${commerce.jwt.app.key:}")
+    @Value("${commerce.jwt.pc.key:}")
     private String jwtKey;
 
     @Autowired

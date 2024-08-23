@@ -2,6 +2,7 @@ package com.group.consult.commerce.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.group.consult.commerce.model.enumeration.OrderStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +20,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@TableName("order")
-public class Order extends BaseEntity  implements Serializable {
+@TableName("ord_order")
+public class OrdOrder extends BaseEntity  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,9 +53,9 @@ public class Order extends BaseEntity  implements Serializable {
     @TableField("merchandise_type")
     private String merchandiseType;
 
-    /**订单状态：待支付、已支付、已关闭、部分退款、全额退款*/
+    /**订单状态：待支付、已支付、已关闭、已完成、部分退款、全额退款*/
     @TableField("status")
-    private String status;
+    private OrderStatusEnum status;
 
     /**已退款金额*/
     @TableField("refunded_amount")
