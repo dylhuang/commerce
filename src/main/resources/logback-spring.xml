@@ -28,10 +28,10 @@
 
     <!-- 根据Spring Profiles配置根Logger -->
     <root level="info">
-        <springProfile name="dev">
+        <springProfile name="dev,local">
             <appender-ref ref="STDOUT" />
         </springProfile>
-        <springProfile name="!dev">
+        <springProfile name="prod">
             <appender-ref ref="FILE" />
         </springProfile>
     </root>
