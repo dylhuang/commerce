@@ -25,7 +25,7 @@ public class ProductEditionDTO implements Serializable {
     /**
      * 产品名称
      */
-    private String merchandiseName;
+    private String productName;
 
     /**
      * 产品单价

@@ -179,14 +179,14 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     public boolean editProductById(ProductEditionDTO productEditionDTO) throws BusinessException {
         Long productId = productEditionDTO.getProductId();
         Product entity = productService.getProductByIdNotNull(productId);
-        entity.setName(productEditionDTO.getMerchandiseName());
+        entity.setName(productEditionDTO.getProductName());
         entity.setPrice(productEditionDTO.getPrice());
         boolean productFlag = productService.updateProduct(entity);
         productServiceService.deleteRelationByProductId(productId);
         List<Long> relationList = productEditionDTO.getServiceTypeIdList();
-        List<ProductService> productServiceList = BeanCopyUtils.copyBeanList(relationList, ProductService.class);
-        productServiceList.forEach(temp -> {
-            temp.setProductId(entity.getId());
+        List<ProductService> productServiceList = Lists.newArrayList();
+        relationList.forEach(temp -> {
+            productServiceList.add(ProductService.builder().productId(productId).serviceTypeId(temp).build());
         });
         boolean psFlag = productServiceService.batchInsertProductService(productServiceList);
         return productFlag && psFlag;
