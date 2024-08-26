@@ -1,5 +1,6 @@
 package com.group.consult.commerce.model.vo;
 
+import com.group.consult.commerce.model.enumeration.OrderSourceTypeEnum;
 import com.group.consult.commerce.model.enumeration.OrderStatusEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -57,6 +58,12 @@ public class OrderPageListVO extends BaseVO{
 
     @Schema(description = "完成时间")
     private LocalDateTime finishTime;
+
+    @Schema(description = "订单来源类型")
+    private OrderSourceTypeEnum sourceType;
+
+    @Schema(description = "订单来源标识")
+    private String sourceNo;
 
     @Schema(description = "备注")
     private String remark;

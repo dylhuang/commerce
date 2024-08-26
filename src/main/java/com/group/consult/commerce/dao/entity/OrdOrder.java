@@ -2,6 +2,7 @@ package com.group.consult.commerce.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.group.consult.commerce.model.enumeration.OrderSourceTypeEnum;
 import com.group.consult.commerce.model.enumeration.OrderStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -76,6 +77,14 @@ public class OrdOrder extends BaseEntity  implements Serializable {
     /**完成时间*/
     @TableField("finish_time")
     private LocalDateTime finishTime;
+
+    /**订单来源类型*/
+    @TableField("source_type")
+    private OrderSourceTypeEnum sourceType;
+
+    /**订单来源标识*/
+    @TableField("source_no")
+    private String sourceNo;
 
     /**备注*/
     @TableField("remark")

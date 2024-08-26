@@ -22,7 +22,7 @@ public class OrderListDTO extends PageRequest {
     @Schema(description = "会员编号")
     private String customerNo;
 
-
-
+    @Schema(description = "来源标识")
+    private String sourceNo;
 
 }

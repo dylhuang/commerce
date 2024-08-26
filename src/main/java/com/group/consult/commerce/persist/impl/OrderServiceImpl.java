@@ -39,6 +39,9 @@ public class OrderServiceImpl extends ServiceImpl<OrdOrderMapper, OrdOrder> impl
         if (StringUtils.isNotBlank(dto.getCustomerNo())) {
             wrapper.eq(OrdOrder::getCustomerNo, dto.getCustomerNo());
         }
+        if (StringUtils.isNotBlank(dto.getSourceNo())) {
+            wrapper.eq(OrdOrder::getSourceNo, dto.getSourceNo());
+        }
         dto.initWithUpdateTimeSort();
         SqlUtils.commonOrderBy(dto.getSorts(), wrapper);
         Page<OrdOrder> page = this.page(Page.of(dto.getPageNum(), dto.getPageSize()), wrapper);
