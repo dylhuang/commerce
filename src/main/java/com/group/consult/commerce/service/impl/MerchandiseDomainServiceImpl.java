@@ -179,7 +179,7 @@ public class MerchandiseDomainServiceImpl implements IMerchandiseDomainService {
     public boolean editProductById(ProductEditionDTO productEditionDTO) throws BusinessException {
         Long productId = productEditionDTO.getProductId();
         Product entity = productService.getProductByIdNotNull(productId);
-        entity.setName(productEditionDTO.getProductName());
+        entity.setName(productEditionDTO.getName());
         entity.setPrice(productEditionDTO.getPrice());
         boolean productFlag = productService.updateProduct(entity);
         productServiceService.deleteRelationByProductId(productId);
