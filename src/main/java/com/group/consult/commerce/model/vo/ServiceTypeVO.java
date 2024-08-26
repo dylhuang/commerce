@@ -46,6 +46,10 @@ public class ServiceTypeVO extends BaseVO implements Serializable {
                 .id(serviceType.getId())
                 .serviceTypeName(serviceType.getServiceTypeName())
                 .serviceTypeStatus(serviceType.getServiceTypeStatus())
+                .createBy(serviceType.getCreateBy())
+                .createTime(serviceType.getCreateTime())
+                .updateBy(serviceType.getUpdateBy())
+                .updateTime(serviceType.getUpdateTime())
                 .build();
     }
 }
